@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public abstract class Card implements Comparable<Card> {
     protected Owner owner;
@@ -24,6 +22,37 @@ public abstract class Card implements Comparable<Card> {
         this.id = nextId++;
     }
 
+    /**
+     * allows the user to add individual trips
+     */
+    public void addTrips() {
+        IndividualTrips trip = new IndividualTrips(3.75);
+        Map<Integer, String> map = new TreeMap<>();
+        map.put(1, "Proceed");
+        map.put(2, "Cancel");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Amount of tickets you wish to buy: ");
+        int numTrips = sc.nextInt();
+        System.out.printf("Price: %.2f $", trip.price * numTrips);
+
+        for (int i = 1; i <= map.size(); i++) {
+            System.out.printf("[ %d ] %-10s", i, map.get(i));
+        }
+
+        int choice = sc.nextInt();
+        if (choice == 1) {
+            balance += numTrips;
+            System.out.printf("%d Ticket(s) bought successfully", numTrips);
+            transactions.add(new Transaction(trip.price * numTrips, trip));
+        }
+
+        if (choice == 2) {
+            addTrips();
+        }
+        //TODO exception handling
+    }
+
     public void checkCard() {
         System.out.printf("Balance: %d tickets", balance);
         System.out.printf("Charged for the month: %b", isMonthly);
@@ -33,7 +62,7 @@ public abstract class Card implements Comparable<Card> {
     @Override
     public int compareTo(Card o) {
         return this.status.compareTo(o.status) * 100
-                + this.id - o.id;
+               + this.id - o.id;
     }
 
     @Override

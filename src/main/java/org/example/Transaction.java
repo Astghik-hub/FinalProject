@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Transaction {
-    private LocalDateTime dateMade;
-    private int amount;
+    private double amount;
     private Ticket ticket;
+    private LocalDateTime dateMade;
 
-    public Transaction(int amount, Ticket ticket) {
+    public Transaction(double amount, Ticket ticket) {
         this.dateMade = LocalDateTime.now();
         this.amount = amount;
         this.ticket = ticket;
@@ -44,11 +44,11 @@ public class Transaction {
         this.dateMade = dateMade;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
