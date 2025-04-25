@@ -53,6 +53,19 @@ public abstract class Card implements Comparable<Card> {
         //TODO exception handling
     }
 
+    /**
+     * allows user to charge their cord for the month
+     */
+    public abstract void addMonthly();
+
+    /**
+     * allows user to charge their cord for the week
+     */
+    public abstract void addWeekly();
+
+    /**
+     * shows what kind of bus passes the user has in their card
+     */
     public void checkCard() {
         System.out.printf("Balance: %d tickets", balance);
         System.out.printf("Charged for the month: %b", isMonthly);
