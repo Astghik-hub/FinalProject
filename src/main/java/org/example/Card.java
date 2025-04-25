@@ -14,7 +14,6 @@ public abstract class Card implements Comparable<Card> {
     protected Stack<Transaction> transactions;
 
     protected static int nextId = 0;
-    protected static Accounts accounts = new Accounts();
 
     public Card(Owner owner, String status) {
         this.owner = owner;
@@ -25,31 +24,10 @@ public abstract class Card implements Comparable<Card> {
         this.id = nextId++;
     }
 
-    /**
-     * the user registers, and it gives them the id of their assigned card
-     */
-    public static void register() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("First name: ");
-        String fname = sc.next();
-        System.out.println("Last name: ");
-        String lname = sc.next();
-        System.out.println("Status (student or normal): ");
-        String status = sc.next();
-
-        Owner owner = new Owner(fname, lname);
-        Card card = null;
-        if (status.equalsIgnoreCase("student")) {
-            card = new StudentCard(owner, status);
-        }
-
-        if (status.equalsIgnoreCase("normal")) {
-           card = new NormalCard(owner, status);
-        }
-
-        assert card != null;
-        System.out.printf("Here is your id: %d", card.id);
-        //TODO add card to accounts
+    public void checkCard() {
+        System.out.printf("Balance: %d tickets", balance);
+        System.out.printf("Charged for the month: %b", isMonthly);
+        System.out.printf("Charged for the week: %b", isWeekly);
     }
 
     @Override
