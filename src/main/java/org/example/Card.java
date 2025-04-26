@@ -1,11 +1,12 @@
 package org.example;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public abstract class Card implements Comparable<Card> {
-    protected Owner owner;
     protected int id;
     protected String status;
+    protected Owner owner;
     protected int balance;
     protected Monthly monthly;
     protected boolean isMonthly;
@@ -14,6 +15,18 @@ public abstract class Card implements Comparable<Card> {
     protected Stack<Transaction> transactions;
 
     protected static int nextId = 0;
+
+    public Card() {
+        this.owner = new Owner("fnane", "lname");
+        this.status = "status";
+        this.balance = 0;
+        this.monthly = new Monthly();
+        this.isMonthly = false;
+        this.weekly = new Weekly();
+        this.isWeekly = false;
+        this.transactions = new Stack<>();
+        this.id = nextId++;
+    }
 
     public Card(Owner owner, String status) {
         this.owner = owner;
@@ -25,45 +38,35 @@ public abstract class Card implements Comparable<Card> {
         this.isWeekly = false;
         this.transactions = new Stack<>();
         this.id = nextId++;
-
     }
 
     /**
      * allows the user to add individual trips
      */
-    public void addTrips() {
-        double tripPrice = 3.75;
-        IndividualTrips trip = new IndividualTrips(tripPrice);
+    public void addTrips(double price, int numTrips) {
+        IndividualTrips trip = new IndividualTrips(price);
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Amount of tickets you wish to buy: ");
-        int numTrips = sc.nextInt();
-        System.out.printf("Price: %.2f $", trip.price * numTrips);
-
-        UserInputManager.displayProceedMenu();
-
-        int choice = sc.nextInt();
-        if (choice == 1) {
             balance += numTrips;
             System.out.printf("%d Ticket(s) bought successfully", numTrips);
             transactions.add(new Transaction(trip.price * numTrips, trip));
-        }
-
-        if (choice == 2) {
-            addTrips();
-        }
-        //TODO exception handling
     }
 
     /**
      * allows user to charge their cord for the month
      */
-    public abstract void addMonthly();
+    public void addMonthly(double price) {
+        monthly.price = price;
+        monthly.setPurchaseDate(LocalDateTime.now());
+        isMonthly = true;
+        transactions.add(new Transaction(price, monthly));
+    }
 
     /**
      * allows user to charge their cord for the week
      */
-    public abstract void addWeekly();
+    public void addWeekly() {
+
+    }
 
     /**
      * shows what kind of bus passes the user has in their card
@@ -72,18 +75,17 @@ public abstract class Card implements Comparable<Card> {
         System.out.printf("Balance: %d tickets", balance);
 
         if (monthly.recharge()) {
-            System.out.printf("Charged for the month: %s", "Yes");
+            System.out.println("Your card is charged for the month");
         } else {
             isMonthly = false;
-            System.out.printf("Charged for the month: %s", "No");
+            System.out.println("Your card is not charged for the month");
         }
 
         if (weekly.recharge()) {
-            System.out.printf("Charged for the week: %s", "Yes");
+            System.out.println("Your card is charged for the week");
         } else {
             isWeekly = false;
-            System.out.printf("Charged for the week: %s", "No");
-
+            System.out.println("Your card is not charged for the week");
         }
     }
 
