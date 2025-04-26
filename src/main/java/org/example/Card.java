@@ -7,7 +7,9 @@ public abstract class Card implements Comparable<Card> {
     protected int id;
     protected String status;
     protected int balance;
+    protected Monthly monthly;
     protected boolean isMonthly;
+    protected Weekly weekly;
     protected boolean isWeekly;
     protected Stack<Transaction> transactions;
 
@@ -17,8 +19,11 @@ public abstract class Card implements Comparable<Card> {
         this.owner = owner;
         this.status = status;
         this.balance = 0;
+        this.monthly = new Monthly();
         this.isMonthly = false;
+        this.weekly = new Weekly();
         this.isWeekly = false;
+        this.transactions = new Stack<>();
         this.id = nextId++;
     }
 
@@ -26,19 +31,15 @@ public abstract class Card implements Comparable<Card> {
      * allows the user to add individual trips
      */
     public void addTrips() {
-        IndividualTrips trip = new IndividualTrips(3.75);
-        Map<Integer, String> map = new TreeMap<>();
-        map.put(1, "Proceed");
-        map.put(2, "Cancel");
+        double tripPrice = 3.75;
+        IndividualTrips trip = new IndividualTrips(tripPrice);
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Amount of tickets you wish to buy: ");
         int numTrips = sc.nextInt();
         System.out.printf("Price: %.2f $", trip.price * numTrips);
 
-        for (int i = 1; i <= map.size(); i++) {
-            System.out.printf("[ %d ] %-10s", i, map.get(i));
-        }
+        UserInputManager.displayProceedMenu();
 
         int choice = sc.nextInt();
         if (choice == 1) {
@@ -68,8 +69,21 @@ public abstract class Card implements Comparable<Card> {
      */
     public void checkCard() {
         System.out.printf("Balance: %d tickets", balance);
-        System.out.printf("Charged for the month: %b", isMonthly);
-        System.out.printf("Charged for the week: %b", isWeekly);
+
+        if (monthly.recharge()) {
+            System.out.printf("Charged for the month: %s", "Yes");
+        } else {
+            isMonthly = false;
+            System.out.printf("Charged for the month: %s", "No");
+        }
+
+        if (weekly.recharge()) {
+            System.out.printf("Charged for the week: %s", "Yes");
+        } else {
+            isWeekly = false;
+            System.out.printf("Charged for the week: %s", "No");
+
+        }
     }
 
     @Override
@@ -158,6 +172,22 @@ public abstract class Card implements Comparable<Card> {
 
     public void setTransactions(Stack<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public Monthly getMonthly() {
+        return monthly;
+    }
+
+    public void setMonthly(Monthly monthly) {
+        this.monthly = monthly;
+    }
+
+    public Weekly getWeekly() {
+        return weekly;
+    }
+
+    public void setWeekly(Weekly weekly) {
+        this.weekly = weekly;
     }
 
     public enum Status {
