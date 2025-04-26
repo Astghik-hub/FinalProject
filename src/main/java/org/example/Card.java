@@ -25,6 +25,7 @@ public abstract class Card implements Comparable<Card> {
         this.isWeekly = false;
         this.transactions = new Stack<>();
         this.id = nextId++;
+
     }
 
     /**
