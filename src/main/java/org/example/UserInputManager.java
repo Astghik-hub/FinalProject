@@ -17,6 +17,7 @@ public class UserInputManager {
             System.out.printf("[ %d ] %-10s", i, proceedMenu.get(i));
         }
     }
+
     public void addTripsMenu() {
         double price = 3.75;
         Scanner sc = new Scanner(System.in);
@@ -46,7 +47,7 @@ public class UserInputManager {
     public void addMonthlyMenu() {
         Scanner sc = new Scanner(System.in);
         double price;
-        if (card instanceof StudentCard) {
+        if (card.status.equals(Card.Status.STUDENT)) {
             price = 60;
         } else price = 100;
 
@@ -59,7 +60,35 @@ public class UserInputManager {
                 card.addMonthly(price);
             } else if (choice == 2) {
 
-            //TODO
+                //TODO
+
+            } else {
+                throw new RuntimeException("Invalid Number, please try again");
+            }
+        } catch (IllegalNumberException e) {
+            System.out.println(e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid entry, please try again");
+        }
+    }
+
+    public void addWeeklyMenu() {
+        Scanner sc = new Scanner(System.in);
+        double price;
+        if (card.status.equals(Card.Status.STUDENT)) {
+            price = 18.5;
+        } else price = 31;
+
+        System.out.printf("Price: %.2f", price);
+        displayProceedMenu();
+
+        try {
+            int choice = sc.nextInt();
+            if (choice == 1) {
+                card.addWeekly(price);
+            } else if (choice == 2) {
+
+                //TODO
 
             } else {
                 throw new RuntimeException("Invalid Number, please try again");

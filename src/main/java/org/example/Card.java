@@ -5,7 +5,7 @@ import java.util.*;
 
 public abstract class Card implements Comparable<Card> {
     protected int id;
-    protected String status;
+    protected Status status;
     protected Owner owner;
     protected int balance;
     protected Monthly monthly;
@@ -18,7 +18,7 @@ public abstract class Card implements Comparable<Card> {
 
     public Card() {
         this.owner = new Owner("fnane", "lname");
-        this.status = "status";
+        this.status = Status.NORMAL;
         this.balance = 0;
         this.monthly = new Monthly();
         this.isMonthly = false;
@@ -28,9 +28,8 @@ public abstract class Card implements Comparable<Card> {
         this.id = nextId++;
     }
 
-    public Card(Owner owner, String status) {
+    public Card(Owner owner) {
         this.owner = owner;
-        this.status = status;
         this.balance = 0;
         this.monthly = new Monthly();
         this.isMonthly = false;
@@ -38,34 +37,6 @@ public abstract class Card implements Comparable<Card> {
         this.isWeekly = false;
         this.transactions = new Stack<>();
         this.id = nextId++;
-    }
-
-    /**
-     * allows the user to add individual trips
-     */
-    public void addTrips(double price, int numTrips) {
-        IndividualTrips trip = new IndividualTrips(price);
-
-            balance += numTrips;
-            System.out.printf("%d Ticket(s) bought successfully", numTrips);
-            transactions.add(new Transaction(trip.price * numTrips, trip));
-    }
-
-    /**
-     * allows user to charge their cord for the month
-     */
-    public void addMonthly(double price) {
-        monthly.price = price;
-        monthly.setPurchaseDate(LocalDateTime.now());
-        isMonthly = true;
-        transactions.add(new Transaction(price, monthly));
-    }
-
-    /**
-     * allows user to charge their cord for the week
-     */
-    public void addWeekly() {
-
     }
 
     /**
@@ -88,6 +59,58 @@ public abstract class Card implements Comparable<Card> {
             System.out.println("Your card is not charged for the week");
         }
     }
+
+    /**
+     * allows the user to add individual trips
+     */
+    public void addTrips(double price, int numTrips) {
+        IndividualTrips trip = new IndividualTrips(price);
+
+        balance += numTrips;
+        System.out.printf("%d Ticket(s) bought successfully", numTrips);
+        transactions.add(new Transaction(trip.price * numTrips, trip));
+    }
+
+    /**
+     * allows user to charge their cord for the month
+     */
+    public void addMonthly(double price) {
+        monthly.price = price;
+        monthly.setPurchaseDate(LocalDateTime.now());
+        isMonthly = true;
+        transactions.add(new Transaction(price, monthly));
+    }
+
+    /**
+     * allows user to charge their cord for the week
+     */
+    public void addWeekly(double price) {
+        weekly.price = price;
+        weekly.setPurchaseDate(LocalDateTime.now());
+        isWeekly = true;
+        transactions.add(new Transaction(price, weekly));
+    }
+
+    /**
+     * allows user to cancel the latest transaction
+     */
+    public void cancel() {
+        Transaction transaction = transactions.peek();
+        if (transaction.getTicket() instanceof IndividualTrips) {
+            balance -= (int) (transaction.getAmount() / transaction.getTicket().price);
+        }
+
+        if (transaction.getTicket() instanceof Monthly) {
+            isMonthly = false;
+        }
+
+        if (transaction.getTicket() instanceof Weekly) {
+            isWeekly = false;
+        }
+
+        transactions.pop();
+    }
+
 
     @Override
     public int compareTo(Card o) {
@@ -137,11 +160,11 @@ public abstract class Card implements Comparable<Card> {
         this.id = id;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -195,5 +218,29 @@ public abstract class Card implements Comparable<Card> {
 
     public enum Status {
         STUDENT, NORMAL
+    }
+
+    public static class CardComparator implements Comparator<Card> {
+        private SortType sortType;
+
+        public CardComparator(SortType sortType) {
+            this.sortType = sortType;
+        }
+
+        @Override
+        public int compare(Card o1, Card o2) {
+            return switch (sortType) {
+                case FNAME -> o1.owner.getFname().compareTo(o2.owner.getFname()) * 10000
+                              + o1.status.compareTo(o2.status) * 100
+                              + Integer.compare(o1.id, o2.id);
+                case LNAME ->o1.owner.getLname().compareTo(o2.owner.getLname()) * 10000
+                             + o1.status.compareTo(o2.status) * 100
+                             + Integer.compare(o1.id, o2.id);
+            };
+        }
+
+        public enum SortType {
+            FNAME, LNAME
+        }
     }
 }

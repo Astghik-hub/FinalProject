@@ -21,11 +21,11 @@ public class Accounts {
         Owner owner = new Owner(fname, lname);
         Card card = null;
         if (status.equalsIgnoreCase("student")) {
-            card = new StudentCard(owner, status);
+            card = new StudentCard(owner);
         }
 
         if (status.equalsIgnoreCase("normal")) {
-            card = new NormalCard(owner, status);
+            card = new NormalCard(owner);
         }
 
         assert card != null;
