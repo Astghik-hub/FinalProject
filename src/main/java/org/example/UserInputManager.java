@@ -13,29 +13,34 @@ public class UserInputManager {
      * allows user to buy trips
      */
     public void addTripsMenu() {
-        double price = 3.75;
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Amount of tickets you wish to buy: ");
         int numTrips = sc.nextInt();
-        System.out.printf("Price: %.2f $\n", price * numTrips);
+        System.out.printf("Price: %.2f $\n", Card.tripPrice * numTrips);
         displayProceedMenu();
+        int a = 0;
+        while (a == 0) {
 
-        try {
-            int choice = sc.nextInt();
-            if (choice == 1) {
-                card.addTrips(price, numTrips);
-            } else if (choice == 2) {
-                addTripsMenu();
-            } else {
-                throw new RuntimeException("Invalid Number, please try again");
+            try {
+                int choice = sc.nextInt();
+                if (choice == 1) {
+                    a = 1;
+                } else if (choice == 2) {
+                    a = 2;
+                } else {
+                    throw new InputMismatchException();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid entry, please try again");
             }
-        } catch (IllegalNumberException e) {
-            System.out.println(e.getMessage());
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid entry, please try again");
+            if (a == 1) {
+                card.addTrips(numTrips);
+            } else if (a == 2) {
+                addTripsMenu();
+            }
         }
-        //TODO ask
+        //TODO
     }
 
     /**
@@ -45,8 +50,8 @@ public class UserInputManager {
         Scanner sc = new Scanner(System.in);
         double price;
         if (card.status.equals(Card.Status.STUDENT)) {
-            price = 60;
-        } else price = 100;
+            price = Card.monthlyDiscountPrice;
+        } else price = Card.monthlyNormalPrice;
 
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();
@@ -76,8 +81,8 @@ public class UserInputManager {
         Scanner sc = new Scanner(System.in);
         double price;
         if (card.status.equals(Card.Status.STUDENT)) {
-            price = 18.5;
-        } else price = 31;
+            price = Card.weeklyDiscountPrice;
+        } else price = Card.weeklyNormalPrice;
 
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();
@@ -108,7 +113,7 @@ public class UserInputManager {
         proceedMenu.put(2, "Cancel");
 
         for (int i = 1; i <= proceedMenu.size(); i++) {
-            System.out.printf("[ %d ] %-10s", i, proceedMenu.get(i));
+            System.out.printf("[%d] %-10s", i, proceedMenu.get(i));
         }
     }
 }

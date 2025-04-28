@@ -5,4 +5,9 @@ public class StudentCard extends Card{
         super(owner);
         this.status = Status.STUDENT;
     }
+
+    public StudentCard() {
+        super();
+        this.status = Status.STUDENT;
+    }
 }

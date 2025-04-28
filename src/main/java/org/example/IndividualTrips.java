@@ -1,8 +1,11 @@
 package org.example;
 
-public class IndividualTrips extends Ticket {
+import java.nio.file.attribute.UserPrincipal;
 
-    public IndividualTrips(double price) {
-        super(price);
+public class IndividualTrips extends Ticket {
+    public static double tripPrice = 3.75;
+
+    public IndividualTrips() {
+        price = tripPrice;
     }
 }

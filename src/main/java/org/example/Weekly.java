@@ -3,7 +3,6 @@ package org.example;
 import java.time.LocalDateTime;
 
 public class Weekly extends Ticket implements Rechargeable {
-
     private LocalDateTime purchaseDate;
 
     public Weekly() {

@@ -5,4 +5,9 @@ public class NormalCard extends Card {
         super(owner);
         this.status = Status.NORMAL;
     }
+
+    public NormalCard() {
+        super();
+        this.status = Status.NORMAL;
+    }
 }

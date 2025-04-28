@@ -1,5 +1,6 @@
 package org.example;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Monthly extends Ticket implements Rechargeable {
@@ -7,12 +8,13 @@ public class Monthly extends Ticket implements Rechargeable {
 
     public Monthly() {
         super();
-        this.purchaseDate = LocalDateTime.now();
+        this.purchaseDate = LocalDateTime.MIN;
     }
 
     @Override
     public boolean recharge() {
-        return purchaseDate.getMonth().equals(LocalDateTime.now().getMonth());
+        return purchaseDate.getYear() == LocalDateTime.now().getYear()
+               && purchaseDate.getMonth().equals(LocalDateTime.now().getMonth());
     }
 
     public LocalDateTime getPurchaseDate() {

@@ -62,11 +62,10 @@ public abstract class Card implements Comparable<Card> {
 
     /**
      * allows user to add trips to their card
-     * @param price price of the individual trip
      * @param numTrips the number of trips the user wants to add
      */
-    public void addTrips(double price, int numTrips) {
-        IndividualTrips trip = new IndividualTrips(price);
+    public void addTrips(int numTrips) {
+        IndividualTrips trip = new IndividualTrips();
 
         balance += numTrips;
         System.out.printf("%d Ticket(s) bought successfully", numTrips);
