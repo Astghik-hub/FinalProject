@@ -9,15 +9,9 @@ public class UserInputManager {
 
     public static Map<Integer, String> proceedMenu;
 
-    public static void displayProceedMenu() {
-        proceedMenu.put(1, "Proceed");
-        proceedMenu.put(2, "Cancel");
-
-        for (int i = 1; i <= proceedMenu.size(); i++) {
-            System.out.printf("[ %d ] %-10s", i, proceedMenu.get(i));
-        }
-    }
-
+    /**
+     * allows user to buy trips
+     */
     public void addTripsMenu() {
         double price = 3.75;
         Scanner sc = new Scanner(System.in);
@@ -44,6 +38,9 @@ public class UserInputManager {
         //TODO ask
     }
 
+    /**
+     * allows user to buy a monthly pass
+     */
     public void addMonthlyMenu() {
         Scanner sc = new Scanner(System.in);
         double price;
@@ -72,6 +69,9 @@ public class UserInputManager {
         }
     }
 
+    /**
+     * allows user to buy a weekly pass
+     */
     public void addWeeklyMenu() {
         Scanner sc = new Scanner(System.in);
         double price;
@@ -97,6 +97,18 @@ public class UserInputManager {
             System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("Invalid entry, please try again");
+        }
+    }
+
+    /**
+     * prints the proceed menu
+     */
+    public static void displayProceedMenu() {
+        proceedMenu.put(1, "Proceed");
+        proceedMenu.put(2, "Cancel");
+
+        for (int i = 1; i <= proceedMenu.size(); i++) {
+            System.out.printf("[ %d ] %-10s", i, proceedMenu.get(i));
         }
     }
 }

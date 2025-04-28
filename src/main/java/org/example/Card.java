@@ -61,7 +61,9 @@ public abstract class Card implements Comparable<Card> {
     }
 
     /**
-     * allows the user to add individual trips
+     * allows user to add trips to their card
+     * @param price price of the individual trip
+     * @param numTrips the number of trips the user wants to add
      */
     public void addTrips(double price, int numTrips) {
         IndividualTrips trip = new IndividualTrips(price);
@@ -72,7 +74,8 @@ public abstract class Card implements Comparable<Card> {
     }
 
     /**
-     * allows user to charge their cord for the month
+     * allows user to charge their card for the month
+     * @param price the price of the monthly pass
      */
     public void addMonthly(double price) {
         monthly.price = price;
@@ -83,6 +86,7 @@ public abstract class Card implements Comparable<Card> {
 
     /**
      * allows user to charge their cord for the week
+     * @param price the price of the weekly pass
      */
     public void addWeekly(double price) {
         weekly.price = price;
