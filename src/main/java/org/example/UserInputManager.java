@@ -17,7 +17,7 @@ public class UserInputManager {
 
         System.out.print("Amount of tickets you wish to buy: ");
         int numTrips = sc.nextInt();
-        System.out.printf("Price: %.2f $\n", IndividualTrips.tripPrice * numTrips);
+        System.out.printf("Price: %.2f $\n", IndividualTrip.tripPrice * numTrips);
         displayProceedMenu();
         int a = 0;
         while (a == 0) {
@@ -62,10 +62,8 @@ public class UserInputManager {
                 //TODO
 
             } else {
-                throw new RuntimeException("Invalid Number, please try again");
+                throw new InputMismatchException();
             }
-        } catch (IllegalNumberException e) {
-            System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("Invalid entry, please try again");
         }
@@ -93,10 +91,8 @@ public class UserInputManager {
                 //TODO
 
             } else {
-                throw new RuntimeException("Invalid Number, please try again");
+                throw new InputMismatchException();
             }
-        } catch (IllegalNumberException e) {
-            System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("Invalid entry, please try again");
         }

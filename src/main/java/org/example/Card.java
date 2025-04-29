@@ -65,7 +65,7 @@ public abstract class Card implements Comparable<Card> {
      * @param numTrips the number of trips the user wants to add
      */
     public void addTrips(int numTrips) {
-        IndividualTrips trip = new IndividualTrips();
+        IndividualTrip trip = new IndividualTrip();
 
         balance += numTrips;
         System.out.printf("%d Ticket(s) bought successfully", numTrips);
@@ -99,7 +99,7 @@ public abstract class Card implements Comparable<Card> {
      */
     public void cancel() {
         Transaction transaction = transactions.peek();
-        if (transaction.getTicket() instanceof IndividualTrips) {
+        if (transaction.getTicket() instanceof IndividualTrip) {
             balance -= (int) (transaction.getAmount() / transaction.getTicket().price);
         }
 
