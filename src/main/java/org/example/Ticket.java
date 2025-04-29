@@ -1,6 +1,6 @@
 package org.example;
 
-public class Ticket {
+public abstract class Ticket {
     public double price;
 
     public Ticket() {

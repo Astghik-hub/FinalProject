@@ -15,7 +15,9 @@ public class Weekly extends Ticket implements Rechargeable {
 
     @Override
     public boolean recharge() {
-        return !(purchaseDate.plusWeeks(1).isAfter(LocalDateTime.now()));
+        return purchaseDate.getYear() == LocalDateTime.now().getYear()
+               && purchaseDate.getMonth().equals(LocalDateTime.now().getMonth())
+               && !(LocalDateTime.now().isAfter(purchaseDate.plusWeeks(1)));
     }
 
     public LocalDateTime getPurchaseDate() {

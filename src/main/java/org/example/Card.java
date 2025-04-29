@@ -68,8 +68,8 @@ public abstract class Card implements Comparable<Card> {
         IndividualTrip trip = new IndividualTrip();
 
         balance += numTrips;
-        System.out.printf("%d Ticket(s) bought successfully", numTrips);
         transactions.add(new Transaction(trip.price * numTrips, trip));
+        System.out.printf("%d Ticket(s) bought successfully", numTrips);
     }
 
     /**
@@ -81,6 +81,7 @@ public abstract class Card implements Comparable<Card> {
         monthly.setPurchaseDate(LocalDateTime.now());
         isMonthly = true;
         transactions.add(new Transaction(price, monthly));
+        System.out.println("Bus pass bought successfully");
     }
 
     /**
@@ -92,6 +93,7 @@ public abstract class Card implements Comparable<Card> {
         weekly.setPurchaseDate(LocalDateTime.now());
         isWeekly = true;
         transactions.add(new Transaction(price, weekly));
+        System.out.println("Bus pass bought successfully");
     }
 
     /**

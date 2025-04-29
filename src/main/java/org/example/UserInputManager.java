@@ -21,7 +21,6 @@ public class UserInputManager {
         displayProceedMenu();
         int a = 0;
         while (a == 0) {
-
             try {
                 int choice = sc.nextInt();
                 if (choice == 1) {
@@ -53,20 +52,27 @@ public class UserInputManager {
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();
 
-        try {
-            int choice = sc.nextInt();
-            if (choice == 1) {
-                card.addMonthly(price);
-            } else if (choice == 2) {
+        int a = 0;
+        while (a == 0) {
+            try {
+                int choice = sc.nextInt();
+                if (choice == 1) {
+                    card.addMonthly(price);
+                    a++;
+                } else if (choice == 2) {
 
-                //TODO
+                    //TODO
+                    a++;
 
-            } else {
-                throw new InputMismatchException();
+                } else {
+                    throw new InputMismatchException();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid entry, please try again");
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid entry, please try again");
         }
+
+        //TODO
     }
 
     /**
@@ -77,25 +83,31 @@ public class UserInputManager {
         double price;
         if (card.status.equals(Card.Status.STUDENT)) {
             price = Weekly.discountPrice;
-        } else price = Weekly.discountPrice;
+        } else price = Weekly.normalPrice;
 
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();
 
-        try {
-            int choice = sc.nextInt();
-            if (choice == 1) {
-                card.addWeekly(price);
-            } else if (choice == 2) {
+        int a = 0;
+        while (a==0) {
+            try {
+                int choice = sc.nextInt();
+                if (choice == 1) {
+                    card.addWeekly(price);
+                    a++;
+                } else if (choice == 2) {
 
-                //TODO
-
-            } else {
-                throw new InputMismatchException();
+                    //TODO
+                    a++;
+                } else {
+                    throw new InputMismatchException();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid entry, please try again");
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid entry, please try again");
         }
+
+        //TODO
     }
 
     /**
