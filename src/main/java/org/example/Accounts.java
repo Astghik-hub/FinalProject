@@ -31,5 +31,23 @@ public class Accounts {
         assert card != null;
         System.out.printf("Here is your id: %d", card.id);
         cards.add(card);
+        writeToFile(card);
+    }
+
+    /**
+     * writes the registered card to a file
+     * @param card the card that was registered
+     */
+    public static void writeToFile(Card card) {
+        //TODO
+    }
+
+    /**
+     * finds the card associated with the id
+     * @param id the id of the card to find
+     * @return the card associated with the id
+     */
+    public static Card findCard(int id) {
+        //TODO
     }
 }

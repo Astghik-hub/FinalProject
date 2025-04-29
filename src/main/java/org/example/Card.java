@@ -8,9 +8,9 @@ public abstract class Card implements Comparable<Card> {
     protected Status status;
     protected Owner owner;
     protected int balance;
-    protected Monthly monthly;
+    protected static Monthly monthly;
     protected boolean isMonthly;
-    protected Weekly weekly;
+    protected static Weekly weekly;
     protected boolean isWeekly;
     protected Stack<Transaction> transactions;
 
@@ -18,7 +18,7 @@ public abstract class Card implements Comparable<Card> {
 
     public Card() {
         this.owner = new Owner("fname", "lname");
-        this.status = Status.NORMAL;
+        this.status = null;
         this.balance = 0;
         this.monthly = new Monthly();
         this.isMonthly = false;

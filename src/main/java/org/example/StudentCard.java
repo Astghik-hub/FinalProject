@@ -1,13 +1,13 @@
 package org.example;
 
-public class StudentCard extends Card{
-    public StudentCard(Owner owner) {
-        super(owner);
+public class StudentCard extends Card {
+    public StudentCard() {
+        super();
         this.status = Status.STUDENT;
     }
 
-    public StudentCard() {
-        super();
+    public StudentCard(Owner owner) {
+        super(owner);
         this.status = Status.STUDENT;
     }
 }
