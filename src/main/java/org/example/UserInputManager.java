@@ -17,7 +17,7 @@ public class UserInputManager {
 
         System.out.print("Amount of tickets you wish to buy: ");
         int numTrips = sc.nextInt();
-        System.out.printf("Price: %.2f $\n", Card.tripPrice * numTrips);
+        System.out.printf("Price: %.2f $\n", IndividualTrips.tripPrice * numTrips);
         displayProceedMenu();
         int a = 0;
         while (a == 0) {
@@ -25,19 +25,16 @@ public class UserInputManager {
             try {
                 int choice = sc.nextInt();
                 if (choice == 1) {
-                    a = 1;
+                    card.addTrips(numTrips);
+                    a++;
                 } else if (choice == 2) {
-                    a = 2;
+                    addTripsMenu();
+                    a++;
                 } else {
                     throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry, please try again");
-            }
-            if (a == 1) {
-                card.addTrips(numTrips);
-            } else if (a == 2) {
-                addTripsMenu();
             }
         }
         //TODO
@@ -50,8 +47,8 @@ public class UserInputManager {
         Scanner sc = new Scanner(System.in);
         double price;
         if (card.status.equals(Card.Status.STUDENT)) {
-            price = Card.monthlyDiscountPrice;
-        } else price = Card.monthlyNormalPrice;
+            price = Monthly.discountPrice;
+        } else price = Monthly.normalPrice;
 
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();
@@ -81,8 +78,8 @@ public class UserInputManager {
         Scanner sc = new Scanner(System.in);
         double price;
         if (card.status.equals(Card.Status.STUDENT)) {
-            price = Card.weeklyDiscountPrice;
-        } else price = Card.weeklyNormalPrice;
+            price = Weekly.discountPrice;
+        } else price = Weekly.discountPrice;
 
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();

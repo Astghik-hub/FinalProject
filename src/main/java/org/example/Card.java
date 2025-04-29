@@ -17,7 +17,7 @@ public abstract class Card implements Comparable<Card> {
     protected static int nextId = 0;
 
     public Card() {
-        this.owner = new Owner("fnane", "lname");
+        this.owner = new Owner("fname", "lname");
         this.status = Status.NORMAL;
         this.balance = 0;
         this.monthly = new Monthly();

@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 public class Weekly extends Ticket implements Rechargeable {
     private LocalDateTime purchaseDate;
 
+    public static double normalPrice = 31;
+    public static double discountPrice = 18.5;
+
     public Weekly() {
         super();
         this.purchaseDate = LocalDateTime.now();
