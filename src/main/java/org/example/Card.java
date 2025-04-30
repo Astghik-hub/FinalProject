@@ -39,6 +39,18 @@ public abstract class Card implements Comparable<Card> {
         this.id = nextId++;
     }
 
+    public Card(int id, Status status, Owner owner, int balance, boolean isMonthly, boolean isWeekly) {
+        this.id = id;
+        this.status = status;
+        this.owner = owner;
+        this.balance = balance;
+        this.monthly = new Monthly();
+        this.isMonthly = isMonthly;
+        this.weekly = new Weekly();
+        this.isWeekly = isWeekly;
+        this.transactions = new Stack<>();
+    }
+
     /**
      * shows what kind of bus passes the user has in their card
      */
