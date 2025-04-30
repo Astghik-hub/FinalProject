@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 public class Accounts {
     public static TreeSet<Card> cards = new TreeSet<>();
+    public static String accountsFilePath = "src/main/resources/accounts.csv";
 
     /**
      * the user registers, and it gives them the id of their assigned card
@@ -31,14 +32,15 @@ public class Accounts {
         assert card != null;
         System.out.printf("Here is your id: %d", card.id);
         cards.add(card);
-        writeToFile(card);
+        writeToFile(card, accountsFilePath);
     }
 
     /**
      * writes the registered card to a file
      * @param card the card that was registered
+     * @param path in which file the card has to be written
      */
-    public static void writeToFile(Card card) {
+    public static void writeToFile(Card card, String path) {
         //TODO
     }
 
