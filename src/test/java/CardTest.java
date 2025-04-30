@@ -98,22 +98,18 @@ public class CardTest {
     }
 
     @Test
-    public void testCancel_cancelMonthly() {
+    public void testCancel_cancelMonthly1() {
         Card card = new StudentCard();
 
-        Transaction t1 = new Transaction(IndividualTrip.tripPrice, new IndividualTrip());
-        Transaction t2 = new Transaction(IndividualTrip.tripPrice, new IndividualTrip());
-        Transaction t3 = new Transaction(Weekly.discountPrice, new Weekly());
-        Transaction t4 = new Transaction(Monthly.discountPrice, new Monthly());
-        card.getTransactions().add(t1);
-        card.getTransactions().add(t2);
-        card.getTransactions().add(t3);
-        card.getTransactions().add(t4);
+        card.addTrips(1);
+        card.addTrips(1);
+        card.addWeekly(Weekly.discountPrice);
+        card.addMonthly(Monthly.discountPrice);
 
         Stack<Transaction> expectedTransactions = new Stack<>();
-        expectedTransactions.add(t1);
-        expectedTransactions.add(t2);
-        expectedTransactions.add(t3);
+        expectedTransactions.add(card.getTransactions().get(0));
+        expectedTransactions.add(card.getTransactions().get(1));
+        expectedTransactions.add(card.getTransactions().get(2));
 
         card.cancel();
 
@@ -128,22 +124,44 @@ public class CardTest {
     }
 
     @Test
-    public void testCancel_cancelWeekly() {
+    public void testCancel_cancelMonthly2() {
         Card card = new StudentCard();
 
-        Transaction t1 = new Transaction(IndividualTrip.tripPrice, new IndividualTrip());
-        Transaction t2 = new Transaction(IndividualTrip.tripPrice, new IndividualTrip());
-        Transaction t3 = new Transaction(Monthly.discountPrice, new Monthly());
-        Transaction t4 = new Transaction(Weekly.discountPrice, new Weekly());
-        card.getTransactions().add(t1);
-        card.getTransactions().add(t2);
-        card.getTransactions().add(t3);
-        card.getTransactions().add(t4);
+        card.addTrips(1);
+        card.addTrips(1);
+        card.addMonthly(Monthly.discountPrice);
+        card.addMonthly(Monthly.discountPrice);
 
         Stack<Transaction> expectedTransactions = new Stack<>();
-        expectedTransactions.add(t1);
-        expectedTransactions.add(t2);
-        expectedTransactions.add(t3);
+        expectedTransactions.add(card.getTransactions().get(0));
+        expectedTransactions.add(card.getTransactions().get(1));
+        expectedTransactions.add(card.getTransactions().get(2));
+
+        card.cancel();
+
+        Stack<Transaction> resultTransactions = card.getTransactions();
+        Assertions.assertTrue(expectedTransactions.size() == resultTransactions.size()
+                              && expectedTransactions.containsAll(resultTransactions)
+                              && resultTransactions.containsAll(expectedTransactions));
+
+        boolean expected = true;
+        boolean result = card.isMonthly();
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void testCancel_cancelWeekly1() {
+        Card card = new StudentCard();
+
+        card.addTrips(1);
+        card.addTrips(1);
+        card.addMonthly(Monthly.discountPrice);
+        card.addWeekly(Weekly.discountPrice);
+
+        Stack<Transaction> expectedTransactions = new Stack<>();
+        expectedTransactions.add(card.getTransactions().get(0));
+        expectedTransactions.add(card.getTransactions().get(1));
+        expectedTransactions.add(card.getTransactions().get(2));
 
         card.cancel();
 
@@ -153,6 +171,32 @@ public class CardTest {
                               && resultTransactions.containsAll(expectedTransactions));
 
         boolean expected = false;
+        boolean result = card.isWeekly();
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void testCancel_cancelWeekly2() {
+        Card card = new StudentCard();
+
+        card.addTrips(1);
+        card.addTrips(1);
+        card.addWeekly(Weekly.discountPrice);
+        card.addWeekly(Weekly.discountPrice);
+
+        Stack<Transaction> expectedTransactions = new Stack<>();
+        expectedTransactions.add(card.getTransactions().get(0));
+        expectedTransactions.add(card.getTransactions().get(1));
+        expectedTransactions.add(card.getTransactions().get(2));
+
+        card.cancel();
+
+        Stack<Transaction> resultTransactions = card.getTransactions();
+        Assertions.assertTrue(expectedTransactions.size() == resultTransactions.size()
+                              && expectedTransactions.containsAll(resultTransactions)
+                              && resultTransactions.containsAll(expectedTransactions));
+
+        boolean expected = true;
         boolean result = card.isWeekly();
         Assertions.assertEquals(expected, result);
     }

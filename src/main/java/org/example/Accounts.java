@@ -47,7 +47,14 @@ public class Accounts {
      * @param id the id of the card to find
      * @return the card associated with the id
      */
-    public static Card findCard(int id) {
+//    public static Card findCard(int id) {
+//        //TODO
+//    }
+
+    /**
+     * displays the accounts on the screen
+     */
+    public static void displayAccounts() {
         //TODO
     }
 }

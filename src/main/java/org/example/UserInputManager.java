@@ -36,6 +36,7 @@ public class UserInputManager {
                 System.out.println("Invalid entry, please try again");
             }
         }
+        System.out.printf("%d Ticket(s) bought successfully\n", numTrips);
         //TODO
     }
 
@@ -71,7 +72,7 @@ public class UserInputManager {
                 System.out.println("Invalid entry, please try again");
             }
         }
-
+        System.out.println("Bus pass bought successfully\n");
         //TODO
     }
 
@@ -106,7 +107,7 @@ public class UserInputManager {
                 System.out.println("Invalid entry, please try again");
             }
         }
-
+        System.out.println("Bus pass bought successfully\n");
         //TODO
     }
 

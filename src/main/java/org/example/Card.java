@@ -8,9 +8,9 @@ public abstract class Card implements Comparable<Card> {
     protected Status status;
     protected Owner owner;
     protected int balance;
-    protected static Monthly monthly;
+    protected Monthly monthly;
     protected boolean isMonthly;
-    protected static Weekly weekly;
+    protected  Weekly weekly;
     protected boolean isWeekly;
     protected Stack<Transaction> transactions;
 
@@ -69,7 +69,6 @@ public abstract class Card implements Comparable<Card> {
 
         balance += numTrips;
         transactions.add(new Transaction(trip.price * numTrips, trip));
-        System.out.printf("%d Ticket(s) bought successfully", numTrips);
     }
 
     /**
@@ -81,7 +80,6 @@ public abstract class Card implements Comparable<Card> {
         monthly.setPurchaseDate(LocalDateTime.now());
         isMonthly = true;
         transactions.add(new Transaction(price, monthly));
-        System.out.println("Bus pass bought successfully");
     }
 
     /**
@@ -93,7 +91,6 @@ public abstract class Card implements Comparable<Card> {
         weekly.setPurchaseDate(LocalDateTime.now());
         isWeekly = true;
         transactions.add(new Transaction(price, weekly));
-        System.out.println("Bus pass bought successfully");
     }
 
     /**
@@ -106,11 +103,17 @@ public abstract class Card implements Comparable<Card> {
         }
 
         if (transaction.getTicket() instanceof Monthly) {
-            isMonthly = false;
+            if (transactions.get(transactions.size() - 2).getTicket() instanceof Monthly) {
+                transactions.pop();
+                return;
+            } else isMonthly = false;
         }
 
         if (transaction.getTicket() instanceof Weekly) {
-            isWeekly = false;
+            if (transactions.get(transactions.size() - 2).getTicket() instanceof Weekly) {
+                transactions.pop();
+                return;
+            } else isWeekly = false;
         }
 
         transactions.pop();
@@ -203,22 +206,6 @@ public abstract class Card implements Comparable<Card> {
 
     public void setTransactions(Stack<Transaction> transactions) {
         this.transactions = transactions;
-    }
-
-    public Monthly getMonthly() {
-        return monthly;
-    }
-
-    public void setMonthly(Monthly monthly) {
-        this.monthly = monthly;
-    }
-
-    public Weekly getWeekly() {
-        return weekly;
-    }
-
-    public void setWeekly(Weekly weekly) {
-        this.weekly = weekly;
     }
 
     public enum Status {
