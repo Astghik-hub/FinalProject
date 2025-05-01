@@ -17,4 +17,9 @@ public class UserInputManagerTest {
     public void testDisplayProceedMenu() {
         UserInputManager.displayProceedMenu();
     }
+
+    @Test
+    public void testDisplayWelcomeMenu() {
+        UserInputManager.displayWelcomeMenu();
+    }
 }

@@ -8,10 +8,10 @@ import java.util.TreeMap;
 public class UserInputManager {
     private Card card;
 
+    public static Map<Integer, String> welcomeMenu = new TreeMap<>();
     public static Map<Integer, String> mainMenu = new TreeMap<>();
     public static Map<Integer, String> buyMenu = new TreeMap<>();
     public static Map<Integer, String> proceedMenu = new TreeMap<>();
-    public static Map<Integer, String> cancelMenu = new TreeMap<>();
 
     private static final int PASSWORD = 91476;
 
@@ -19,6 +19,32 @@ public class UserInputManager {
      * asks the user to put their id if their registered, if they're not it will allow them to register
      */
     public void welcomeMenuOption() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            try {
+                UserInputManager.displayWelcomeMenu();
+                int choice = sc.nextInt();
+                switch (choice) {
+                    case 1 -> loginOption();
+                    case 2 -> Accounts.register();
+                    case 3 -> UserInputManager.forgotId();
+                    case 4 -> {
+                        System.out.println("Thank you for using the machine");
+                        return;
+                    }
+                    default -> throw new InputMismatchException();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, please try again");
+                sc.nextInt();
+            }
+        }
+    }
+
+    /**
+     * allows the user to login to their account
+     */
+    public static void loginOption() {
         //TODO
     }
 
@@ -52,25 +78,26 @@ public class UserInputManager {
         System.out.print("Amount of tickets you wish to buy: ");
         int numTrips = sc.nextInt();
         System.out.printf("Price: %.2f $\n", IndividualTrip.tripPrice * numTrips);
-        displayProceedMenu();
-        int a = 0;
-        while (a == 0) {
+
+        while (true) {
             try {
+                displayProceedMenu();
                 int choice = sc.nextInt();
-                if (choice == 1) {
-                    card.addTrips(numTrips);
-                    a++;
-                } else if (choice == 2) {
-                    addTripsMenuOption();
-                    a++;
-                } else {
-                    throw new InputMismatchException();
+                switch (choice) {
+                    case 1 -> {
+                        card.addTrips(numTrips);
+                        System.out.printf("%d Ticket(s) bought successfully\n", numTrips);
+                        return;
+                    }
+                    case 2 -> addTripsMenuOption();
+                    default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry, please try again");
+                sc.nextInt();
             }
         }
-        System.out.printf("%d Ticket(s) bought successfully\n", numTrips);
+
         //TODO
     }
 
@@ -84,27 +111,28 @@ public class UserInputManager {
             price = Monthly.discountPrice;
         } else price = Monthly.normalPrice;
 
-        System.out.printf("Price: %.2f", price);
-        displayProceedMenu();
+        System.out.printf("Price: %.2f\n", price);
 
         while (true) {
             try {
+                displayProceedMenu();
                 int choice = sc.nextInt();
-                if (choice == 1) {
-                    card.addMonthly(price);
-                    break;
-                } else if (choice == 2) {
-                    buyMenuOption();
-                    break;
-                } else {
-                    throw new InputMismatchException();
+                switch (choice) {
+                    case 1 -> {
+                        card.addMonthly(price);
+                        System.out.println("Bus pass bought successfully\n");
+                        return;
+                    }
+                    case 2 -> {
+                        return;
+                    }
+                    default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry, please try again");
+                sc.nextInt();
             }
         }
-        System.out.println("Bus pass bought successfully\n");
-        //TODO
     }
 
     /**
@@ -118,26 +146,27 @@ public class UserInputManager {
         } else price = Weekly.normalPrice;
 
         System.out.printf("Price: %.2f", price);
-        displayProceedMenu();
+
 
         while (true) {
             try {
+                displayProceedMenu();
                 int choice = sc.nextInt();
-                if (choice == 1) {
-                    card.addWeekly(price);
-                    break;
-                } else if (choice == 2) {
-                    buyMenuOption();
-                    break;
-                } else {
-                    throw new InputMismatchException();
+                switch (choice) {
+                    case 1 -> {
+                        card.addWeekly(price);
+                        System.out.println("Bus pass bought successfully\n");
+                    }
+                    case 2 -> {
+                        return;
+                    }
+                    default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry, please try again");
+                sc.nextInt();
             }
         }
-        System.out.println("Bus pass bought successfully\n");
-        //TODO
     }
 
     /**
@@ -150,8 +179,20 @@ public class UserInputManager {
     /**
      * if the user forgot their id, it will allow them to see all the accounts, if they put the right password
      */
-    public void forgotId() {
+    public static void forgotId() {
         //TODO
+    }
+
+    /**
+     *
+     */
+    public static void displayWelcomeMenu() {
+        Map<Integer, String> menu = welcomeMenu;
+        menu.put(1, "Login");
+        menu.put(2, "Register");
+        menu.put(3, "Forgot your id?");
+        menu.put(4, "Exit");
+        printMaps(menu);
     }
 
     /**
@@ -199,6 +240,7 @@ public class UserInputManager {
 
     /**
      * format prints maps
+     *
      * @param menu the map to print
      */
     public static void printMaps(Map<Integer, String> menu) {

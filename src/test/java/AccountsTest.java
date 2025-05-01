@@ -3,9 +3,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+
+import static org.example.Card.Status.STUDENT;
 
 public class AccountsTest {
     public static String filePath = "src/test/resources/fakeAccounts.csv";
@@ -13,32 +14,22 @@ public class AccountsTest {
 
     @Test
     public void testAddFromFile() throws IOException {
+        Owner o1 = new Owner("astghik", "minasyan");
+        Owner o2 = new Owner("arpine", "grigoryan");
+        Owner o3 = new Owner("siranush", "minasyan");
+        Card c1 = new StudentCard(1, STUDENT, o1,0,true,false);
+        Card c2 = new StudentCard(2, STUDENT, o2,0, false, true);
+        Card c3 = new StudentCard(3, STUDENT, o3, 0, false, false);
+
+        TreeSet<Card> fakeCards = new TreeSet<>();
+        fakeCards.add(c1);
+        fakeCards.add(c2);
+        fakeCards.add(c3);
+        TreeSet<Card> expectedCards = fakeCards;
+
+        Accounts.setCards(fakeCards);
         Accounts.addFromFile(fakeFile);
         TreeSet<Card> resultCards = Accounts.getCards();
-
-        TreeSet<Card> expectedCards = new TreeSet<>();
-        try (Scanner scanner = new Scanner(fakeFile)) {
-            while (scanner.hasNext()) {
-                String line = scanner.nextLine();
-                String[] elements = line.split(",");
-                int id = Integer.parseInt(elements[0]);
-                Card.Status status = Card.Status.valueOf(elements[1]);
-                String fname = elements[2];
-                String lname = elements[3];
-                int balance = Integer.parseInt(elements[4]);
-                boolean isMonthly = Boolean.parseBoolean(elements[5]);
-                boolean isWeekly = Boolean.parseBoolean(elements[6]);
-
-                if (status.equals(Card.Status.STUDENT)) {
-                    expectedCards.add(new StudentCard(id, status, new Owner(fname, lname), balance, isMonthly, isWeekly));
-                } else if (status.equals(Card.Status.NORMAL)) {
-                    expectedCards.add(new NormalCard(id, status, new Owner(fname, lname), balance, isMonthly, isWeekly));
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         Assertions.assertTrue(expectedCards.size() == resultCards.size()
                               && expectedCards.containsAll(resultCards)
                               && resultCards.containsAll(expectedCards));

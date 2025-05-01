@@ -1,6 +1,9 @@
 package org.example;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Accounts {
@@ -9,34 +12,10 @@ public class Accounts {
     private static File accountsFile = new File(accountsFilePath);
     private static Map<Integer, Card> idMap = new TreeMap<>();
 
-
     /**
      * the user registers, and it gives them the id of their assigned card
      */
     public static void register() {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("First name: ");
-//        String fname = sc.next();
-//        System.out.println("Last name: ");
-//        String lname = sc.next();
-//        System.out.println("Status (student or normal): ");
-//        String status = sc.next();
-//
-//        Owner owner = new Owner(fname, lname);
-//        Card card = null;
-//        if (status.equalsIgnoreCase("student")) {
-//            card = new StudentCard(owner);
-//        }
-//
-//        if (status.equalsIgnoreCase("normal")) {
-//            card = new NormalCard(owner);
-//        }
-//
-//        assert card != null;
-//        System.out.printf("Here is your id: %d", card.id);
-//        cards.add(card);
-//        writeToFile(card, accountsFile);
-
         Scanner sc = new Scanner(System.in);
         String fname;
         String lname;
@@ -98,7 +77,29 @@ public class Accounts {
      * reads the cards from a file and adds them to the set of cards
      */
     public static void addFromFile(File file) {
-        //TODO
+        try (Scanner scanner = new Scanner(accountsFile)) {
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                String[] elements = line.split(",");
+                int id = Integer.parseInt(elements[0]);
+                Card.Status status = Card.Status.valueOf(elements[1]);
+                String fname = elements[2];
+                String lname = elements[3];
+                int balance = Integer.parseInt(elements[4]);
+                boolean isMonthly = Boolean.parseBoolean(elements[5]);
+                boolean isWeekly = Boolean.parseBoolean(elements[6]);
+
+                if (status.equals(Card.Status.STUDENT)) {
+                    cards.add(new StudentCard(id, status, new Owner(fname, lname), balance, isMonthly, isWeekly));
+                } else if (status.equals(Card.Status.NORMAL)) {
+                    cards.add(new NormalCard(id, status, new Owner(fname, lname), balance, isMonthly, isWeekly));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        makeMap();
     }
 
     /**
@@ -108,14 +109,27 @@ public class Accounts {
      * @param file the file in which the card has to be written
      */
     public static void writeToFile(Card card, File file) {
-        //TODO
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+                fileWriter.write(card.getId() + ",");
+                fileWriter.write(card.getStatus() + ",");
+                fileWriter.write(card.getOwner().getFname() + ",");
+                fileWriter.write(card.getOwner().getLname() + ",");
+                fileWriter.write(card.getBalance() + ",");
+                fileWriter.write(card.isWeekly() + ",");
+                fileWriter.write(card.isWeekly() + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * puts the ids as keys and the cards as values in the map
      */
     public static void makeMap() {
-        //TODO
+        ArrayList<Card> cardList = new ArrayList<>(cards);
+        for (int  i = 0; i < cards.size(); i++) {
+            idMap.put(cardList.get(i).getId(), cardList.get(i));
+        }
     }
 
     /**
@@ -125,8 +139,7 @@ public class Accounts {
      * @return the card associated with the id
      */
     public static Card findCard(int id) {
-        //TODO
-        return null;
+        return idMap.getOrDefault(id, null);
     }
 
     /**
@@ -150,5 +163,21 @@ public class Accounts {
 
     public static void setAccountsFilePath(String accountsFilePath) {
         Accounts.accountsFilePath = accountsFilePath;
+    }
+
+    public static File getAccountsFile() {
+        return accountsFile;
+    }
+
+    public static void setAccountsFile(File accountsFile) {
+        Accounts.accountsFile = accountsFile;
+    }
+
+    public static Map<Integer, Card> getIdMap() {
+        return idMap;
+    }
+
+    public static void setIdMap(Map<Integer, Card> idMap) {
+        Accounts.idMap = idMap;
     }
 }

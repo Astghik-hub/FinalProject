@@ -14,21 +14,23 @@ public abstract class Card implements Comparable<Card> {
     protected boolean isWeekly;
     protected Stack<Transaction> transactions;
 
-    protected static int nextId = 0;
+    protected static int nextId = 1;
 
     public Card() {
-        this.owner = new Owner("fname", "lname");
+        this.id = nextId++;
         this.status = null;
+        this.owner = new Owner("fname", "lname");
         this.balance = 0;
         this.monthly = new Monthly();
         this.isMonthly = false;
         this.weekly = new Weekly();
         this.isWeekly = false;
         this.transactions = new Stack<>();
-        this.id = nextId++;
+
     }
 
     public Card(Owner owner) {
+        this.id = nextId++;
         this.owner = owner;
         this.balance = 0;
         this.monthly = new Monthly();
@@ -36,7 +38,6 @@ public abstract class Card implements Comparable<Card> {
         this.weekly = new Weekly();
         this.isWeekly = false;
         this.transactions = new Stack<>();
-        this.id = nextId++;
     }
 
     public Card(int id, Status status, Owner owner, int balance, boolean isMonthly, boolean isWeekly) {
