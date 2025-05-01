@@ -121,7 +121,7 @@ public class UserInputManager {
         displayProceedMenu();
 
         int a = 0;
-        while (a==0) {
+        while (a == 0) {
             try {
                 int choice = sc.nextInt();
                 if (choice == 1) {
@@ -159,7 +159,7 @@ public class UserInputManager {
      * prints the main menu
      */
     public static void displayMainMenu() {
-       //TODO
+        //TODO
     }
 
     /**
@@ -190,6 +190,7 @@ public class UserInputManager {
 
     /**
      * displays the accounts based on the sortType
+     *
      * @param sortType the way the user wants the accounts to be sorted
      */
     public static void displayAccountsOption(String sortType) {

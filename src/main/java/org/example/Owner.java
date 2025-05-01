@@ -7,8 +7,20 @@ public class Owner {
     private String lname;
 
     public Owner(String fname, String lname) {
-        this.fname = fname;
-        this.lname = lname;
+        this.fname = toTitleCase(fname);
+        this.lname = toTitleCase(lname);
+    }
+
+    /**
+     * converts a String to titleCase
+     *
+     * @param str the string to convert
+     * @return the first letter uppercase and the rest lowercase
+     */
+    public String toTitleCase(String str) {
+        if (str.isEmpty()) {
+            return "";
+        } else return Character.toUpperCase(str.charAt(0)) + str.substring(1).toLowerCase();
     }
 
     @Override

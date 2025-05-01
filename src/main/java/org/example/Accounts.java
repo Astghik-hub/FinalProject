@@ -1,11 +1,17 @@
 package org.example;
 
+import java.io.File;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Accounts {
-    public static TreeSet<Card> cards = new TreeSet<>();
-    public static String accountsFilePath = "src/main/resources/accounts.csv";
+    private static TreeSet<Card> cards = new TreeSet<>();
+    private static String accountsFilePath = "src/main/resources/accounts.csv";
+    private static File accountsFile = new File(accountsFilePath);
+    private static Map<Integer, Card> idMap = new TreeMap<>();
+
 
     /**
      * the user registers, and it gives them the id of their assigned card
@@ -32,31 +38,64 @@ public class Accounts {
         assert card != null;
         System.out.printf("Here is your id: %d", card.id);
         cards.add(card);
-        writeToFile(card, accountsFilePath);
+        writeToFile(card, accountsFile);
+    }
+
+    /**
+     * reads the cards from a file and adds them to the set of cards
+     */
+    public static void addFromFile(File file) {
+        //TODO
     }
 
     /**
      * writes the registered card to a file
+     *
      * @param card the card that was registered
-     * @param path in which file the card has to be written
+     * @param file the file in which the card has to be written
      */
-    public static void writeToFile(Card card, String path) {
+    public static void writeToFile(Card card, File file) {
+        //TODO
+    }
+
+    /**
+     * puts the ids as keys and the cards as values in the map
+     */
+    public static void makeToMap() {
         //TODO
     }
 
     /**
      * finds the card associated with the id
+     *
      * @param id the id of the card to find
      * @return the card associated with the id
      */
-//    public static Card findCard(int id) {
-//        //TODO
-//    }
+    public static Card findCard(int id) {
+        //TODO
+        return null;
+    }
 
     /**
      * displays the accounts on the screen
      */
     public static void displayAccounts() {
         //TODO
+    }
+
+    public static TreeSet<Card> getCards() {
+        return cards;
+    }
+
+    public static void setCards(TreeSet<Card> cards) {
+        Accounts.cards = cards;
+    }
+
+    public static String getAccountsFilePath() {
+        return accountsFilePath;
+    }
+
+    public static void setAccountsFilePath(String accountsFilePath) {
+        Accounts.accountsFilePath = accountsFilePath;
     }
 }

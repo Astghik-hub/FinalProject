@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class CardTest {
     @Test
-    public void testAddTrip() {
+    public void testAddTrip1() {
         Card card = new StudentCard();
         card.addTrips(2);
 
@@ -27,7 +27,28 @@ public class CardTest {
     }
 
     @Test
-    public void testAddMonthly() {
+    public void testAddTrip2() {
+        Card card = new StudentCard();
+        card.addTrips(0);
+
+        int expectedBalance = 0;
+        int result = card.getBalance();
+
+        Assertions.assertEquals(expectedBalance, result);
+
+        double amount = 0 * IndividualTrip.tripPrice;
+        Transaction transaction = new Transaction(amount, new IndividualTrip());
+        Stack<Transaction> expectedTransactions = new Stack<>();
+        expectedTransactions.add(transaction);
+        Stack<Transaction> resultTransaction = card.getTransactions();
+
+        Assertions.assertTrue(expectedTransactions.size() == resultTransaction.size()
+                              && expectedTransactions.getFirst().getAmount() == resultTransaction.getFirst().getAmount()
+                              && expectedTransactions.getFirst().getTicket().getClass() == resultTransaction.getFirst().getTicket().getClass());
+    }
+
+    @Test
+    public void testAddMonthly1() {
         Card card = new StudentCard();
         card.addMonthly(Monthly.discountPrice);
 
@@ -47,7 +68,27 @@ public class CardTest {
     }
 
     @Test
-    public void testAddWeekly() {
+    public void testAddMonthly2() {
+        Card card = new NormalCard();
+        card.addMonthly(Monthly.normalPrice);
+
+        boolean expected = true;
+        boolean result = card.isMonthly();
+        Assertions.assertEquals(expected, result);
+
+        Transaction transaction = new Transaction(Monthly.normalPrice, new Monthly());
+        Stack<Transaction> expectedTransactions = new Stack<>();
+        expectedTransactions.add(transaction);
+        Stack<Transaction> resultTransaction = card.getTransactions();
+
+        Assertions.assertTrue(expectedTransactions.size() == resultTransaction.size()
+                              && expectedTransactions.getFirst().getAmount() == resultTransaction.getFirst().getAmount()
+                              && expectedTransactions.getFirst().getTicket().getClass() == resultTransaction.getFirst().getTicket().getClass());
+
+    }
+
+    @Test
+    public void testAddWeekly1() {
         Card card = new StudentCard();
         card.addWeekly(Weekly.discountPrice);
 
@@ -56,6 +97,26 @@ public class CardTest {
         Assertions.assertEquals(expected, result);
 
         Transaction transaction = new Transaction(Weekly.discountPrice, new Weekly());
+        Stack<Transaction> expectedTransactions = new Stack<>();
+        expectedTransactions.add(transaction);
+        Stack<Transaction> resultTransaction = card.getTransactions();
+
+        Assertions.assertTrue(expectedTransactions.size() == resultTransaction.size()
+                              && expectedTransactions.peek().getAmount() == resultTransaction.peek().getAmount()
+                              && expectedTransactions.peek().getTicket().getClass() == resultTransaction.peek().getTicket().getClass());
+
+    }
+
+    @Test
+    public void testAddWeekly2() {
+        Card card = new NormalCard();
+        card.addWeekly(Weekly.normalPrice);
+
+        boolean expected = true;
+        boolean result = card.isWeekly();
+        Assertions.assertEquals(expected, result);
+
+        Transaction transaction = new Transaction(Weekly.normalPrice, new Weekly());
         Stack<Transaction> expectedTransactions = new Stack<>();
         expectedTransactions.add(transaction);
         Stack<Transaction> resultTransaction = card.getTransactions();

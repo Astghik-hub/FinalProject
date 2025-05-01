@@ -10,7 +10,7 @@ public abstract class Card implements Comparable<Card> {
     protected int balance;
     protected Monthly monthly;
     protected boolean isMonthly;
-    protected  Weekly weekly;
+    protected Weekly weekly;
     protected boolean isWeekly;
     protected Stack<Transaction> transactions;
 
@@ -74,6 +74,7 @@ public abstract class Card implements Comparable<Card> {
 
     /**
      * allows user to add trips to their card
+     *
      * @param numTrips the number of trips the user wants to add
      */
     public void addTrips(int numTrips) {
@@ -85,6 +86,7 @@ public abstract class Card implements Comparable<Card> {
 
     /**
      * allows user to charge their card for the month
+     *
      * @param price the price of the monthly pass
      */
     public void addMonthly(double price) {
@@ -96,6 +98,7 @@ public abstract class Card implements Comparable<Card> {
 
     /**
      * allows user to charge their cord for the week
+     *
      * @param price the price of the weekly pass
      */
     public void addWeekly(double price) {
@@ -237,9 +240,9 @@ public abstract class Card implements Comparable<Card> {
                 case FNAME -> o1.owner.getFname().compareTo(o2.owner.getFname()) * 10000
                               + o1.status.compareTo(o2.status) * 100
                               + Integer.compare(o1.id, o2.id);
-                case LNAME ->o1.owner.getLname().compareTo(o2.owner.getLname()) * 10000
-                             + o1.status.compareTo(o2.status) * 100
-                             + Integer.compare(o1.id, o2.id);
+                case LNAME -> o1.owner.getLname().compareTo(o2.owner.getLname()) * 10000
+                              + o1.status.compareTo(o2.status) * 100
+                              + Integer.compare(o1.id, o2.id);
             };
         }
 

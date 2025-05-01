@@ -12,6 +12,11 @@ public class Monthly extends Ticket implements Rechargeable {
         this.purchaseDate = LocalDateTime.MIN;
     }
 
+    /**
+     * allows the user to check if the monthly pass they bought is still valid
+     *
+     * @return true if the pass is valid, false if it isn't
+     */
     @Override
     public boolean recharge() {
         return purchaseDate.getYear() == LocalDateTime.now().getYear()
