@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Monthly extends Ticket implements Rechargeable {
     private LocalDateTime purchaseDate;
+
     public static double normalPrice = 100;
     public static double discountPrice = 60;
 

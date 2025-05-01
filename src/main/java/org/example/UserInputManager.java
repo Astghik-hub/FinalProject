@@ -3,14 +3,15 @@ package org.example;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class UserInputManager {
     private Card card;
 
-    public static Map<Integer, String> mainMenu;
-    public static Map<Integer, String> buyMenu;
-    public static Map<Integer, String> proceedMenu;
-    public static Map<Integer, String> cancelMenu;
+    public static Map<Integer, String> mainMenu = new TreeMap<>();
+    public static Map<Integer, String> buyMenu = new TreeMap<>();
+    public static Map<Integer, String> proceedMenu = new TreeMap<>();
+    public static Map<Integer, String> cancelMenu = new TreeMap<>();
 
     private static final int PASSWORD = 91476;
 
@@ -86,16 +87,15 @@ public class UserInputManager {
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();
 
-        int a = 0;
-        while (a == 0) {
+        while (true) {
             try {
                 int choice = sc.nextInt();
                 if (choice == 1) {
                     card.addMonthly(price);
-                    a++;
+                    break;
                 } else if (choice == 2) {
-                    a++;
                     buyMenuOption();
+                    break;
                 } else {
                     throw new InputMismatchException();
                 }
@@ -120,16 +120,15 @@ public class UserInputManager {
         System.out.printf("Price: %.2f", price);
         displayProceedMenu();
 
-        int a = 0;
-        while (a == 0) {
+        while (true) {
             try {
                 int choice = sc.nextInt();
                 if (choice == 1) {
                     card.addWeekly(price);
-                    a++;
+                    break;
                 } else if (choice == 2) {
-                    a++;
                     buyMenuOption();
+                    break;
                 } else {
                     throw new InputMismatchException();
                 }
@@ -159,33 +158,34 @@ public class UserInputManager {
      * prints the main menu
      */
     public static void displayMainMenu() {
-        //TODO
+        Map<Integer, String> menu = mainMenu;
+        menu.put(1, "Check card");
+        menu.put(2, "Buy");
+        menu.put(3, "Cancel Transaction");
+        menu.put(4, "Exit");
+        printMaps(menu);
     }
 
     /**
      * prints the buy menu
      */
     public static void displayBuyMenu() {
-        //TODO
+        Map<Integer, String> menu = buyMenu;
+        menu.put(1, "Individual Ticket");
+        menu.put(2, "Monthly Pass");
+        menu.put(3, "Weekly Pass");
+        menu.put(4, "Exit");
+        printMaps(menu);
     }
 
     /**
      * prints the proceed menu
      */
     public static void displayProceedMenu() {
-        proceedMenu.put(1, "Proceed");
-        proceedMenu.put(2, "Cancel");
-
-        for (int i = 1; i <= proceedMenu.size(); i++) {
-            System.out.printf("[%d] %-10s", i, proceedMenu.get(i));
-        }
-    }
-
-    /**
-     * prints the cancel menu
-     */
-    public static void displayCancelMenu() {
-        //TODO
+        Map<Integer, String> menu = proceedMenu;
+        menu.put(1, "Proceed");
+        menu.put(2, "Cancel");
+        printMaps(menu);
     }
 
     /**
@@ -195,5 +195,13 @@ public class UserInputManager {
      */
     public static void displayAccountsOption(String sortType) {
         //TODO
+    }
+
+    /**
+     * format prints maps
+     * @param menu the map to print
+     */
+    public static void printMaps(Map<Integer, String> menu) {
+        menu.forEach((key, value) -> System.out.printf("[%d] %s\n", key, value));
     }
 }

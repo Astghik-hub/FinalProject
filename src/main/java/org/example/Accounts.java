@@ -1,10 +1,7 @@
 package org.example;
 
 import java.io.File;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Accounts {
     private static TreeSet<Card> cards = new TreeSet<>();
@@ -17,26 +14,82 @@ public class Accounts {
      * the user registers, and it gives them the id of their assigned card
      */
     public static void register() {
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("First name: ");
+//        String fname = sc.next();
+//        System.out.println("Last name: ");
+//        String lname = sc.next();
+//        System.out.println("Status (student or normal): ");
+//        String status = sc.next();
+//
+//        Owner owner = new Owner(fname, lname);
+//        Card card = null;
+//        if (status.equalsIgnoreCase("student")) {
+//            card = new StudentCard(owner);
+//        }
+//
+//        if (status.equalsIgnoreCase("normal")) {
+//            card = new NormalCard(owner);
+//        }
+//
+//        assert card != null;
+//        System.out.printf("Here is your id: %d", card.id);
+//        cards.add(card);
+//        writeToFile(card, accountsFile);
+
         Scanner sc = new Scanner(System.in);
-        System.out.println("First name: ");
-        String fname = sc.next();
-        System.out.println("Last name: ");
-        String lname = sc.next();
-        System.out.println("Status (student or normal): ");
-        String status = sc.next();
+        String fname;
+        String lname;
+        String status;
+
+        while (true) {
+            try {
+                System.out.print("First name: ");
+                fname = sc.next();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid first name.");
+                sc.nextLine();
+            }
+        }
+
+        while (true) {
+            try {
+                System.out.print("Last name: ");
+                lname = sc.next();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid last name.");
+                sc.nextLine();
+            }
+        }
+
+        while (true) {
+            try {
+                System.out.print("Status (student or normal): ");
+                status = sc.next();
+                if (status.equalsIgnoreCase("student") || status.equalsIgnoreCase("normal")) {
+                    break;
+                } else {
+                    System.out.println("Invalid status. Please enter 'student' or 'normal'.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid status.");
+                sc.nextLine();
+            }
+        }
 
         Owner owner = new Owner(fname, lname);
         Card card = null;
+
         if (status.equalsIgnoreCase("student")) {
             card = new StudentCard(owner);
-        }
-
-        if (status.equalsIgnoreCase("normal")) {
+        } else if (status.equalsIgnoreCase("normal")) {
             card = new NormalCard(owner);
         }
 
         assert card != null;
-        System.out.printf("Here is your id: %d", card.id);
+        System.out.printf("Here is your id: %d\n", card.id);
         cards.add(card);
         writeToFile(card, accountsFile);
     }
@@ -61,7 +114,7 @@ public class Accounts {
     /**
      * puts the ids as keys and the cards as values in the map
      */
-    public static void makeToMap() {
+    public static void makeMap() {
         //TODO
     }
 
