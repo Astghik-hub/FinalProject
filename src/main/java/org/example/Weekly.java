@@ -10,7 +10,8 @@ public class Weekly extends Ticket implements Rechargeable {
 
     public Weekly() {
         super();
-        this.purchaseDate = LocalDateTime.now();
+        this.purchaseDate = LocalDateTime.MIN;
+        this.name = "Weekly Pass";
     }
 
     /**

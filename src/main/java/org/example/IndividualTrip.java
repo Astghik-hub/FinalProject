@@ -5,5 +5,6 @@ public class IndividualTrip extends Ticket {
 
     public IndividualTrip() {
         price = tripPrice;
+        this.name = "Individual Trip";
     }
 }

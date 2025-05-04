@@ -90,7 +90,7 @@ public class UserInputManager {
                 switch (choice) {
                     case 1 -> card.checkCard();
                     case 2 -> buyMenuOption();
-                    case 3 -> card.cancel();
+                    case 3 -> cancelMenuOption();
                     case 4 -> {
                         return;
                     }
@@ -188,7 +188,7 @@ public class UserInputManager {
             price = Monthly.discountPrice;
         } else price = Monthly.normalPrice;
 
-        System.out.printf("Price: %.2f\n", price);
+        System.out.printf("Price: %.2f $\n", price);
 
         while (true) {
             try {
@@ -222,7 +222,7 @@ public class UserInputManager {
             price = Weekly.discountPrice;
         } else price = Weekly.normalPrice;
 
-        System.out.printf("Price: %.2f\n", price);
+        System.out.printf("Price: %.2f $\n", price);
 
         while (true) {
             try {
@@ -250,7 +250,37 @@ public class UserInputManager {
      * allows user to cancel their latest transaction
      */
     public void cancelMenuOption() {
-        //TODO
+        if (card.transactions.isEmpty()) {
+            System.out.println("There are no transactions to cancel");
+            return;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        Transaction transaction = card.transactions.peek();
+        System.out.println("**You can only cancel the latest transaction");
+        System.out.printf("Transaction to cancel: %s, %.2f $\n", transaction.getTicket().name, transaction.getAmount());
+
+        while (true) {
+            try {
+                displayProceedMenu();
+                int choice = sc.nextInt();
+                switch (choice) {
+                    case 1 -> {
+                        card.cancel();
+                        System.out.println("Transaction canceled successfully\n");
+                        return;
+                    }
+                    case 2 -> {
+                        return;
+                    }
+                    default -> throw new InputMismatchException();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid entry, please try again");
+                sc.nextLine();
+            }
+        }
+
     }
 
     /**
