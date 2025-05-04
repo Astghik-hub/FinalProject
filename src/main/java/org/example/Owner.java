@@ -38,10 +38,7 @@ public class Owner {
 
     @Override
     public String toString() {
-        return "Owner{" +
-               "fname='" + fname + '\'' +
-               ", lname='" + lname + '\'' +
-               '}';
+        return fname + ' ' + lname;
     }
 
     public String getFname() {

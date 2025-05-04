@@ -18,6 +18,7 @@ public abstract class Card implements Comparable<Card> {
 
     public Card() {
         this.id = nextId++;
+        nextId++;
         this.status = null;
         this.owner = new Owner("fname", "lname");
         this.balance = 0;
@@ -31,6 +32,7 @@ public abstract class Card implements Comparable<Card> {
 
     public Card(Owner owner) {
         this.id = nextId++;
+        nextId++;
         this.owner = owner;
         this.balance = 0;
         this.monthly = new Monthly();
@@ -56,7 +58,7 @@ public abstract class Card implements Comparable<Card> {
      * shows what kind of bus passes the user has in their card
      */
     public void checkCard() {
-        System.out.printf("Balance: %d tickets", balance);
+        System.out.printf("Balance: %d ticket(s)\n", balance);
 
         if (monthly.recharge()) {
             System.out.println("Your card is charged for the month");
@@ -119,17 +121,21 @@ public abstract class Card implements Comparable<Card> {
         }
 
         if (transaction.getTicket() instanceof Monthly) {
-            if (transactions.get(transactions.size() - 2).getTicket() instanceof Monthly) {
+            if (transactions.size() < 2) {
+                isMonthly = false;
+            } else if (transactions.get(transactions.size() - 2).getTicket() instanceof Monthly) {
                 transactions.pop();
                 return;
-            } else isMonthly = false;
+            }
         }
 
         if (transaction.getTicket() instanceof Weekly) {
-            if (transactions.get(transactions.size() - 2).getTicket() instanceof Weekly) {
+            if (transactions.size() < 2) {
+                isWeekly = false;
+            } else if (transactions.get(transactions.size() - 2).getTicket() instanceof Weekly) {
                 transactions.pop();
                 return;
-            } else isWeekly = false;
+            }
         }
 
         transactions.pop();

@@ -71,6 +71,7 @@ public class Accounts {
         System.out.printf("Here is your id: %d\n", card.id);
         cards.add(card);
         writeToFile(card, accountsFile);
+        UserInputManager.displayWelcomeMenu();
     }
 
     /**
