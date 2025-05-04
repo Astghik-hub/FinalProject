@@ -44,8 +44,29 @@ public class UserInputManager {
     /**
      * allows the user to login to their account
      */
-    public static void loginOption() {
-        //TODO
+    public void loginOption() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter your card ID. Type a if you want to exit");
+        while (true) {
+            try {
+                int id = sc.nextInt();
+                if (id == 'a') {
+                    return;
+                }
+                this.card = Accounts.findCard(id);
+                while (card == null) {
+                    System.out.println("Card id doesn't exist. Please try again or register if you haven't already");
+                    if (sc.nextInt() == 'a') {
+                        return;
+                    }
+                    else sc.nextInt();
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input, please try again");
+                sc.nextInt();
+            }
+        }
     }
 
     /**

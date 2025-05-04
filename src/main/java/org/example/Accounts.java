@@ -77,7 +77,7 @@ public class Accounts {
      * reads the cards from a file and adds them to the set of cards
      */
     public static void addFromFile(File file) {
-        try (Scanner scanner = new Scanner(accountsFile)) {
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 String[] elements = line.split(",");
