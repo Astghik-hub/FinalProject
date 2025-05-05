@@ -103,6 +103,10 @@ public class Accounts {
         makeMap();
     }
 
+    public static void writeToFile(File file) {
+        cards.forEach(card -> writeToFile(card, file));
+    }
+
     /**
      * writes the registered card to a file
      *

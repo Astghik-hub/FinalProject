@@ -121,19 +121,19 @@ public abstract class Card implements Comparable<Card> {
         }
 
         if (transaction.getTicket() instanceof Monthly) {
-            if (transactions.size() == 1) {
+            if (transactions.size() == 1 || !(transactions.get(transactions.size() - 2).getTicket() instanceof Monthly)) {
                 monthly.setPurchaseDate(LocalDateTime.MIN);
                 isMonthly = false;
-            } else if (transactions.get(transactions.size() - 2).getTicket() instanceof Monthly) {
+            } else  {
                 monthly.setPurchaseDate(transactions.get(transactions.size() - 2).getDateMade());
             }
         }
 
         if (transaction.getTicket() instanceof Weekly) {
-            if (transactions.size() == 1) {
+            if (transactions.size() == 1 || !(transactions.get(transactions.size() - 2).getTicket() instanceof Weekly)) {
                 weekly.setPurchaseDate(LocalDateTime.MIN);
                 isWeekly = false;
-            } else if (transactions.get(transactions.size() - 2).getTicket() instanceof Weekly) {
+            } else {
                 weekly.setPurchaseDate(transactions.get(transactions.size() - 2).getDateMade());
             }
         }

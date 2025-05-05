@@ -286,8 +286,55 @@ public class UserInputManager {
     /**
      * if the user forgot their id, it will allow them to see all the accounts, if they put the right password
      */
-    public static void forgotId() {
-        //TODO
+    public void forgotId() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter the password. To go back type 'b'");
+
+        while (true) {
+            String input = sc.nextLine();
+
+            if (input.equalsIgnoreCase("b")) {
+                return;
+            }
+
+            try {
+                if (Integer.parseInt(input) == PASSWORD) {
+                    displayAccountsOption();
+                    return;
+                } else {
+                    System.out.println("Wrong password, try again or press 'b' to go back");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number or 'b' to go back.");
+            }
+        }
+    }
+
+    /**
+     * displays the accounts based on the sortType
+     */
+    public void displayAccountsOption() {
+        Scanner sc = new Scanner(System.in);
+        String sortType;
+        while (true) {
+            System.out.println("Would you like to sort them by first name (f) or last name (l)?");
+            sortType = sc.next();
+            if (sortType.equalsIgnoreCase("f") || sortType.equalsIgnoreCase("l")) {
+                break;
+            } else {
+                System.out.println("Invalid sort type. Please enter 'f' or 'l'.");
+            }
+            sc.nextLine();
+        }
+
+        List<Card> cards = new ArrayList<>(Accounts.getCards().stream().toList());
+        if (sortType.equalsIgnoreCase("f")) {
+            Collections.sort(cards, new Card.CardComparator(Card.CardComparator.SortType.FNAME));
+        } else {
+            Collections.sort(cards, new Card.CardComparator(Card.CardComparator.SortType.LNAME));
+        }
+
+        printArrayList(cards);
     }
 
     /**
@@ -337,20 +384,15 @@ public class UserInputManager {
     }
 
     /**
-     * displays the accounts based on the sortType
-     *
-     * @param sortType the way the user wants the accounts to be sorted
-     */
-    public static void displayAccountsOption(String sortType) {
-        //TODO
-    }
-
-    /**
      * format prints maps
      *
      * @param menu the map to print
      */
     public static void printMaps(Map<Integer, String> menu) {
         menu.forEach((key, value) -> System.out.printf("[%d] %s\n", key, value));
+    }
+
+    public void printArrayList(List<Card> cardList) {
+        cardList.forEach(card -> System.out.printf("%s, %s, %s, %d, %d, %b, %b\n", card.owner.getFname(), card.owner.getLname(), card.status, card.id, card.balance, card.isMonthly, card.isWeekly));
     }
 }
