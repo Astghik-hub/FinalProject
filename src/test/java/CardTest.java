@@ -53,7 +53,7 @@ public class CardTest {
         card.addMonthly(Monthly.discountPrice);
 
         boolean expected = true;
-        boolean result = card.isMonthly();
+        boolean result = card.getIsMonthly();
         Assertions.assertEquals(expected, result);
 
         Transaction transaction = new Transaction(Monthly.discountPrice, new Monthly());
@@ -73,7 +73,7 @@ public class CardTest {
         card.addMonthly(Monthly.normalPrice);
 
         boolean expected = true;
-        boolean result = card.isMonthly();
+        boolean result = card.getIsMonthly();
         Assertions.assertEquals(expected, result);
 
         Transaction transaction = new Transaction(Monthly.normalPrice, new Monthly());
@@ -93,7 +93,7 @@ public class CardTest {
         card.addWeekly(Weekly.discountPrice);
 
         boolean expected = true;
-        boolean result = card.isWeekly();
+        boolean result = card.getIsWeekly();
         Assertions.assertEquals(expected, result);
 
         Transaction transaction = new Transaction(Weekly.discountPrice, new Weekly());
@@ -113,7 +113,7 @@ public class CardTest {
         card.addWeekly(Weekly.normalPrice);
 
         boolean expected = true;
-        boolean result = card.isWeekly();
+        boolean result = card.getIsWeekly();
         Assertions.assertEquals(expected, result);
 
         Transaction transaction = new Transaction(Weekly.normalPrice, new Weekly());
@@ -184,7 +184,7 @@ public class CardTest {
                               && resultTransactions.containsAll(expectedTransactions));
 
         boolean expected = false;
-        boolean result = card.isMonthly();
+        boolean result = card.getIsMonthly();
         Assertions.assertEquals(expected, result);
     }
 
@@ -212,7 +212,7 @@ public class CardTest {
                               && resultTransactions.containsAll(expectedTransactions));
 
         boolean expected = true;
-        boolean result = card.isMonthly();
+        boolean result = card.getIsMonthly();
         Assertions.assertEquals(expected, result);
     }
 
@@ -240,7 +240,7 @@ public class CardTest {
                               && resultTransactions.containsAll(expectedTransactions));
 
         boolean expected = false;
-        boolean result = card.isWeekly();
+        boolean result = card.getIsWeekly();
         Assertions.assertEquals(expected, result);
     }
 
@@ -268,7 +268,7 @@ public class CardTest {
                               && resultTransactions.containsAll(expectedTransactions));
 
         boolean expected = true;
-        boolean result = card.isWeekly();
+        boolean result = card.getIsWeekly();
         Assertions.assertEquals(expected, result);
     }
 }
