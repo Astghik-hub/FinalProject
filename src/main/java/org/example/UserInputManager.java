@@ -162,7 +162,10 @@ public class UserInputManager {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1 -> {
+                        Accounts.getCards().remove(card);
                         card.addTrips(numTrips);
+                        Accounts.getCards().add(card);
+                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
                         System.out.printf("%d Ticket(s) bought successfully\n", numTrips);
                         return;
                     }
@@ -196,7 +199,10 @@ public class UserInputManager {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1 -> {
+                        Accounts.getCards().remove(card);
                         card.addMonthly(price);
+                        Accounts.getCards().add(card);
+                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
                         System.out.println("Bus pass bought successfully\n");
                         return;
                     }
@@ -230,7 +236,10 @@ public class UserInputManager {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1 -> {
+                        Accounts.getCards().remove(card);
                         card.addWeekly(price);
+                        Accounts.getCards().add(card);
+                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
                         System.out.println("Bus pass bought successfully\n");
                         return;
                     }
@@ -266,7 +275,10 @@ public class UserInputManager {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1 -> {
-                        card.cancel();
+                        Accounts.getCards().remove(card);
+                        card.cancel(transaction);
+                        Accounts.getCards().add(card);
+                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
                         System.out.println("Transaction canceled successfully\n");
                         return;
                     }

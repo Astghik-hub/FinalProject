@@ -146,7 +146,9 @@ public class CardTest {
         expectedTransactions.add(t2);
         expectedTransactions.add(t3);
 
-        card.cancel();
+        Transaction transaction = card.getTransactions().peek();
+
+        card.cancel(transaction);
 
         Stack<Transaction> resultTransactions = card.getTransactions();
         Assertions.assertTrue(expectedTransactions.size() == resultTransactions.size()
@@ -172,7 +174,9 @@ public class CardTest {
         expectedTransactions.add(card.getTransactions().get(1));
         expectedTransactions.add(card.getTransactions().get(2));
 
-        card.cancel();
+        Transaction transaction = card.getTransactions().peek();
+
+        card.cancel(transaction);
 
         Stack<Transaction> resultTransactions = card.getTransactions();
         Assertions.assertTrue(expectedTransactions.size() == resultTransactions.size()
@@ -198,7 +202,9 @@ public class CardTest {
         expectedTransactions.add(card.getTransactions().get(1));
         expectedTransactions.add(card.getTransactions().get(2));
 
-        card.cancel();
+        Transaction transaction = card.getTransactions().peek();
+
+        card.cancel(transaction);
 
         Stack<Transaction> resultTransactions = card.getTransactions();
         Assertions.assertTrue(expectedTransactions.size() == resultTransactions.size()
@@ -224,7 +230,9 @@ public class CardTest {
         expectedTransactions.add(card.getTransactions().get(1));
         expectedTransactions.add(card.getTransactions().get(2));
 
-        card.cancel();
+        Transaction transaction = card.getTransactions().peek();
+
+        card.cancel(transaction);
 
         Stack<Transaction> resultTransactions = card.getTransactions();
         Assertions.assertTrue(expectedTransactions.size() == resultTransactions.size()
@@ -250,7 +258,9 @@ public class CardTest {
         expectedTransactions.add(card.getTransactions().get(1));
         expectedTransactions.add(card.getTransactions().get(2));
 
-        card.cancel();
+        Transaction transaction = card.getTransactions().peek();
+
+        card.cancel(transaction);
 
         Stack<Transaction> resultTransactions = card.getTransactions();
         Assertions.assertTrue(expectedTransactions.size() == resultTransactions.size()

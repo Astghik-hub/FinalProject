@@ -70,8 +70,7 @@ public class Accounts {
         assert card != null;
         System.out.printf("Here is your id: %d\n", card.id);
         cards.add(card);
-        writeToFile(card, accountsFile);
-        UserInputManager.displayWelcomeMenu();
+        writeToFile(card, accountsFile, true);
     }
 
     /**
@@ -103,8 +102,8 @@ public class Accounts {
         makeMap();
     }
 
-    public static void writeToFile(File file) {
-        cards.forEach(card -> writeToFile(card, file));
+    public static void writeToFile(File file, boolean append) {
+        cards.forEach(card -> writeToFile(card, file, append));
     }
 
     /**
@@ -113,15 +112,15 @@ public class Accounts {
      * @param card the card that was registered
      * @param file the file in which the card has to be written
      */
-    public static void writeToFile(Card card, File file) {
-        try (FileWriter fileWriter = new FileWriter(file, true)) {
+    public static void writeToFile(Card card, File file, boolean append) {
+        try (FileWriter fileWriter = new FileWriter(file, append)) {
                 fileWriter.write(card.getId() + ",");
                 fileWriter.write(card.getStatus() + ",");
                 fileWriter.write(card.getOwner().getFname() + ",");
                 fileWriter.write(card.getOwner().getLname() + ",");
                 fileWriter.write(card.getBalance() + ",");
-                fileWriter.write(card.isWeekly() + ",");
-                fileWriter.write(card.isWeekly() + "\n");
+                fileWriter.write(card.getIsMonthly() + ",");
+                fileWriter.write(card.getIsWeekly() + "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

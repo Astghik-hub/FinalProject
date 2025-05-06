@@ -18,7 +18,6 @@ public abstract class Card implements Comparable<Card> {
 
     public Card() {
         this.id = nextId++;
-        nextId++;
         this.status = null;
         this.owner = new Owner("fname", "lname");
         this.balance = 0;
@@ -32,7 +31,6 @@ public abstract class Card implements Comparable<Card> {
 
     public Card(Owner owner) {
         this.id = nextId++;
-        nextId++;
         this.owner = owner;
         this.balance = 0;
         this.monthly = new Monthly();
@@ -114,8 +112,7 @@ public abstract class Card implements Comparable<Card> {
     /**
      * allows user to cancel the latest transaction
      */
-    public void cancel() {
-        Transaction transaction = transactions.peek();
+    public void cancel(Transaction transaction) {
         if (transaction.getTicket() instanceof IndividualTrip) {
             balance -= (int) (transaction.getAmount() / transaction.getTicket().price);
         }
@@ -206,7 +203,7 @@ public abstract class Card implements Comparable<Card> {
         this.balance = balance;
     }
 
-    public boolean isMonthly() {
+    public boolean getIsMonthly() {
         return isMonthly;
     }
 
@@ -214,7 +211,7 @@ public abstract class Card implements Comparable<Card> {
         isMonthly = monthly;
     }
 
-    public boolean isWeekly() {
+    public boolean getIsWeekly() {
         return isWeekly;
     }
 
