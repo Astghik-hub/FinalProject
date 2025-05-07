@@ -350,7 +350,7 @@ public class UserInputManager {
     }
 
     /**
-     *
+     * prints the welcome menu
      */
     public static void displayWelcomeMenu() {
         Map<Integer, String> menu = welcomeMenu;
@@ -404,6 +404,10 @@ public class UserInputManager {
         menu.forEach((key, value) -> System.out.printf("[%d] %s\n", key, value));
     }
 
+    /**
+     * prints an arraylist of cards
+     * @param cardList the arraylist of cards to print
+     */
     public void printArrayList(List<Card> cardList) {
         cardList.forEach(card -> System.out.printf("%s, %s, %s, %d, %d, %b, %b\n", card.owner.getFname(), card.owner.getLname(), card.status, card.id, card.balance, card.isMonthly, card.isWeekly));
     }

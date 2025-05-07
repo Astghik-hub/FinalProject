@@ -17,9 +17,9 @@ public class AccountsTest {
         Owner o1 = new Owner("astghik", "minasyan");
         Owner o2 = new Owner("arpine", "grigoryan");
         Owner o3 = new Owner("siranush", "minasyan");
-        Card c1 = new StudentCard(1, STUDENT, o1,0,true,false);
-        Card c2 = new StudentCard(2, STUDENT, o2,0, false, true);
-        Card c3 = new StudentCard(3, STUDENT, o3, 0, false, false);
+        Card c1 = new StudentCard(1, STUDENT, o1,0, new Monthly(), true, new Weekly(),false);
+        Card c2 = new StudentCard(2, STUDENT, o2,0, new Monthly(), false, new Weekly(), true);
+        Card c3 = new StudentCard(3, STUDENT, o3, 0, new Monthly(), false, new Weekly(), false);
 
         TreeSet<Card> fakeCards = new TreeSet<>();
         fakeCards.add(c1);
@@ -37,6 +37,7 @@ public class AccountsTest {
 
     @Test
     public void testFindCard1() {
+        Accounts.addFromFile(fakeFile);
         Owner o1 = new Owner("john", "rich");
         Owner o2 = new Owner("alice", "rich");
         Owner o3 = new Owner("john", "harper");

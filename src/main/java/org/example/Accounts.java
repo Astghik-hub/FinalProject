@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Accounts {
@@ -87,12 +88,19 @@ public class Accounts {
                 String lname = elements[3];
                 int balance = Integer.parseInt(elements[4]);
                 boolean isMonthly = Boolean.parseBoolean(elements[5]);
-                boolean isWeekly = Boolean.parseBoolean(elements[6]);
+                LocalDateTime monthlyPurchaseDate = LocalDateTime.parse(elements[6]);
+                boolean isWeekly = Boolean.parseBoolean(elements[7]);
+                LocalDateTime weeklyPurchaseDate = LocalDateTime.parse(elements[8]);
+
+                Monthly monthly = new Monthly();
+                monthly.setPurchaseDate(monthlyPurchaseDate);
+                Weekly weekly = new Weekly();
+                weekly.setPurchaseDate(weeklyPurchaseDate);
 
                 if (status.equals(Card.Status.STUDENT)) {
-                    cards.add(new StudentCard(id, status, new Owner(fname, lname), balance, isMonthly, isWeekly));
+                    cards.add(new StudentCard(id, status, new Owner(fname, lname), balance, monthly, isMonthly, weekly, isWeekly));
                 } else if (status.equals(Card.Status.NORMAL)) {
-                    cards.add(new NormalCard(id, status, new Owner(fname, lname), balance, isMonthly, isWeekly));
+                    cards.add(new NormalCard(id, status, new Owner(fname, lname), balance, monthly, isMonthly, weekly, isWeekly));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -120,10 +128,14 @@ public class Accounts {
                 fileWriter.write(card.getOwner().getLname() + ",");
                 fileWriter.write(card.getBalance() + ",");
                 fileWriter.write(card.getIsMonthly() + ",");
-                fileWriter.write(card.getIsWeekly() + "\n");
+                fileWriter.write(card.getMonthly().getPurchaseDate() + ",");
+                fileWriter.write(card.getIsWeekly() + ",");
+                fileWriter.write(card.getWeekly().getPurchaseDate() + "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        makeMap();
     }
 
     /**
@@ -144,13 +156,6 @@ public class Accounts {
      */
     public static Card findCard(int id) {
         return idMap.getOrDefault(id, null);
-    }
-
-    /**
-     * displays the accounts on the screen
-     */
-    public static void displayAccounts() {
-        //TODO
     }
 
     public static TreeSet<Card> getCards() {

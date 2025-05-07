@@ -47,14 +47,14 @@ public abstract class Card implements Comparable<Card> {
         this.transactions = new Stack<>();
     }
 
-    public Card(int id, Status status, Owner owner, int balance, boolean isMonthly, boolean isWeekly) {
+    public Card(int id, Status status, Owner owner, int balance, Monthly monthly, boolean isMonthly, Weekly weekly, boolean isWeekly) {
         this.id = id;
         this.status = status;
         this.owner = owner;
         this.balance = balance;
-        this.monthly = new Monthly();
+        this.monthly = monthly;
         this.isMonthly = isMonthly;
-        this.weekly = new Weekly();
+        this.weekly = weekly;
         this.isWeekly = isWeekly;
         this.transactions = new Stack<>();
     }
@@ -267,6 +267,22 @@ public abstract class Card implements Comparable<Card> {
 
     public void setTransactions(Stack<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public Monthly getMonthly() {
+        return monthly;
+    }
+
+    public void setMonthly(Monthly monthly) {
+        this.monthly = monthly;
+    }
+
+    public Weekly getWeekly() {
+        return weekly;
+    }
+
+    public void setWeekly(Weekly weekly) {
+        this.weekly = weekly;
     }
 
     public enum Status {
