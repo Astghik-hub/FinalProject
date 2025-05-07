@@ -1,5 +1,9 @@
 package org.example;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -14,10 +18,13 @@ public abstract class Card implements Comparable<Card> {
     protected boolean isWeekly;
     protected Stack<Transaction> transactions;
 
-    protected static int nextId = 1;
+    protected static String idFilePath = "src/main/resources/nextId.txt";
+    protected static File idFile = new File(idFilePath);
+    protected static int nextId = readIdFromFile(idFile);
 
     public Card() {
         this.id = nextId++;
+        writeIdToFile(idFile);
         this.status = null;
         this.owner = new Owner("fname", "lname");
         this.balance = 0;
@@ -26,11 +33,11 @@ public abstract class Card implements Comparable<Card> {
         this.weekly = new Weekly();
         this.isWeekly = false;
         this.transactions = new Stack<>();
-
     }
 
     public Card(Owner owner) {
         this.id = nextId++;
+        writeIdToFile(idFile);
         this.owner = owner;
         this.balance = 0;
         this.monthly = new Monthly();
@@ -121,7 +128,7 @@ public abstract class Card implements Comparable<Card> {
             if (transactions.size() == 1 || !(transactions.get(transactions.size() - 2).getTicket() instanceof Monthly)) {
                 monthly.setPurchaseDate(LocalDateTime.MIN);
                 isMonthly = false;
-            } else  {
+            } else {
                 monthly.setPurchaseDate(transactions.get(transactions.size() - 2).getDateMade());
             }
         }
@@ -138,11 +145,46 @@ public abstract class Card implements Comparable<Card> {
         transactions.pop();
     }
 
+    /**
+     * reads what the current id should be
+     *
+     * @param file the file where the id is written
+     * @return the id that the card should have
+     */
+    public static int readIdFromFile(File file) {
+        int fileId;
+        try {
+            Scanner sc = new Scanner(file);
+            fileId = sc.nextInt();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
+        return fileId;
+    }
+
+    /**
+     * overwrites the current id to the next one
+     *
+     * @param file the file to overwrite
+     */
+    public static void writeIdToFile(File file) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            fileWriter.write(nextId + "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * sorts the cards by id
+     *
+     * @param o the object to be compared.
+     * @return the sorted cards
+     */
     @Override
     public int compareTo(Card o) {
-        return this.status.compareTo(o.status) * 100
-               + this.id - o.id;
+        return this.id - o.id;
     }
 
     @Override
@@ -238,6 +280,13 @@ public abstract class Card implements Comparable<Card> {
             this.sortType = sortType;
         }
 
+        /**
+         * sorts the cards depending on the sortType
+         *
+         * @param o1 the first object to be compared.
+         * @param o2 the second object to be compared.
+         * @return the sorted cards
+         */
         @Override
         public int compare(Card o1, Card o2) {
             return switch (sortType) {
