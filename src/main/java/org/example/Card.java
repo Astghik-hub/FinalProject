@@ -234,10 +234,6 @@ public abstract class Card implements Comparable<Card> {
         return isWeekly;
     }
 
-    public Stack<Transaction> getTransactions() {
-        return transactions;
-    }
-
     public Monthly getMonthly() {
         return monthly;
     }
