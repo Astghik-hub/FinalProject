@@ -76,6 +76,8 @@ public class Accounts {
 
     /**
      * reads the cards from a file and adds them to the set of cards
+     *
+     * @param file the file to read from
      */
     public static void addFromFile(File file) {
         try (Scanner scanner = new Scanner(file)) {
@@ -126,7 +128,7 @@ public class Accounts {
     /**
      * writes the cards to a file
      *
-     * @param file   the file to write in
+     * @param file the file to write in
      */
     public static void writeToFile(File file) {
         clearFile(file);
@@ -185,27 +187,7 @@ public class Accounts {
         Accounts.cards = cards;
     }
 
-    public static String getAccountsFilePath() {
-        return accountsFilePath;
-    }
-
-    public static void setAccountsFilePath(String accountsFilePath) {
-        Accounts.accountsFilePath = accountsFilePath;
-    }
-
     public static File getAccountsFile() {
         return accountsFile;
-    }
-
-    public static void setAccountsFile(File accountsFile) {
-        Accounts.accountsFile = accountsFile;
-    }
-
-    public static Map<Integer, Card> getIdMap() {
-        return idMap;
-    }
-
-    public static void setIdMap(Map<Integer, Card> idMap) {
-        Accounts.idMap = idMap;
     }
 }

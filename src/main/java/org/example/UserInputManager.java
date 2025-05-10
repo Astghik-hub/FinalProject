@@ -44,7 +44,6 @@ public class UserInputManager {
         }
     }
 
-
     /**
      * allows the user to login to their account
      */
@@ -300,7 +299,6 @@ public class UserInputManager {
                 sc.nextLine();
             }
         }
-
     }
 
     /**

@@ -22,19 +22,6 @@ public abstract class Card implements Comparable<Card> {
     protected static File idFile = new File(idFilePath);
     protected static int nextId = readIdFromFile(idFile);
 
-    public Card() {
-        this.id = nextId++;
-        writeIdToFile(idFile);
-        this.status = null;
-        this.owner = new Owner("fname", "lname");
-        this.balance = 0;
-        this.monthly = new Monthly();
-        this.isMonthly = false;
-        this.weekly = new Weekly();
-        this.isWeekly = false;
-        this.transactions = new Stack<>();
-    }
-
     public Card(Owner owner) {
         this.id = nextId++;
         writeIdToFile(idFile);
@@ -122,6 +109,7 @@ public abstract class Card implements Comparable<Card> {
 
     /**
      * allows the user to cancel a transaction
+     *
      * @param transaction the transaction to cancel (supposed to be the latest)
      */
     public void cancel(Transaction transaction) {
@@ -226,72 +214,36 @@ public abstract class Card implements Comparable<Card> {
         return owner;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public int getBalance() {
         return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
     }
 
     public boolean getIsMonthly() {
         return isMonthly;
     }
 
-    public void setMonthly(boolean monthly) {
-        isMonthly = monthly;
-    }
-
     public boolean getIsWeekly() {
         return isWeekly;
-    }
-
-    public void setWeekly(boolean weekly) {
-        isWeekly = weekly;
     }
 
     public Stack<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(Stack<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
     public Monthly getMonthly() {
         return monthly;
     }
 
-    public void setMonthly(Monthly monthly) {
-        this.monthly = monthly;
-    }
-
     public Weekly getWeekly() {
         return weekly;
-    }
-
-    public void setWeekly(Weekly weekly) {
-        this.weekly = weekly;
     }
 
     public enum Status {

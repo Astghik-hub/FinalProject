@@ -10,10 +10,6 @@ public abstract class Ticket {
         this.price = 0;
     }
 
-    public Ticket(double price) {
-        this.price = price;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
