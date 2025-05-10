@@ -44,6 +44,7 @@ public class UserInputManager {
         }
     }
 
+
     /**
      * allows the user to login to their account
      */
