@@ -352,13 +352,13 @@ public class UserInputManager {
             Collections.sort(cards, new Card.CardComparator(Card.CardComparator.SortType.LNAME));
         }
 
-        printArrayList(cards);
+        printList(cards);
     }
 
     /**
      * prints the welcome menu
      */
-    public static void displayWelcomeMenu() {
+    public void displayWelcomeMenu() {
         Map<Integer, String> menu = welcomeMenu;
         menu.put(1, "Login");
         menu.put(2, "Register");
@@ -370,7 +370,7 @@ public class UserInputManager {
     /**
      * prints the main menu
      */
-    public static void displayMainMenu() {
+    public void displayMainMenu() {
         Map<Integer, String> menu = mainMenu;
         menu.put(1, "Check card");
         menu.put(2, "Buy");
@@ -382,7 +382,7 @@ public class UserInputManager {
     /**
      * prints the buy menu
      */
-    public static void displayBuyMenu() {
+    public void displayBuyMenu() {
         Map<Integer, String> menu = buyMenu;
         menu.put(1, "Individual Ticket");
         menu.put(2, "Monthly Pass");
@@ -394,7 +394,7 @@ public class UserInputManager {
     /**
      * prints the proceed menu
      */
-    public static void displayProceedMenu() {
+    public void displayProceedMenu() {
         Map<Integer, String> menu = proceedMenu;
         menu.put(1, "Proceed");
         menu.put(2, "Cancel");
@@ -406,16 +406,16 @@ public class UserInputManager {
      *
      * @param menu the map to print
      */
-    public static void printMaps(Map<Integer, String> menu) {
+    public void printMaps(Map<Integer, String> menu) {
         menu.forEach((key, value) -> System.out.printf("[%d] %s\n", key, value));
     }
 
     /**
      * prints an arraylist of cards
      *
-     * @param cardList the arraylist of cards to print
+     * @param cardList the list of cards to print
      */
-    public void printArrayList(List<Card> cardList) {
+    public void printList(List<Card> cardList) {
         cardList.forEach(card -> System.out.printf("%s, %s, %05d, %s, %d, %b, %b\n", card.owner.getFname(), card.owner.getLname(), card.id, card.status, card.balance, card.isMonthly, card.isWeekly));
     }
 }
