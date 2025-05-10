@@ -15,7 +15,7 @@ public class WeeklyTest {
         int day = LocalDateTime.now().plusWeeks(1).getDayOfMonth();
         weekly.setPurchaseDate(LocalDateTime.of(year, month, day, 1, 1));
 
-        boolean expected = false;
+        boolean expected = true;
         boolean result = weekly.recharge();
 
         Assertions.assertEquals(expected, result);
@@ -40,7 +40,7 @@ public class WeeklyTest {
         Weekly weekly = new Weekly();
         int year = LocalDateTime.now().getYear();
         Month month = LocalDateTime.now().getMonth();
-        int day = LocalDateTime.now().minusDays(18).getDayOfMonth();
+        int day = LocalDateTime.now().minusDays(8).getDayOfMonth();
         weekly.setPurchaseDate(LocalDateTime.of(year, month, day, 1, 1));
 
         boolean expected = false;

@@ -117,7 +117,8 @@ public abstract class Card implements Comparable<Card> {
     }
 
     /**
-     * allows user to cancel the latest transaction
+     * allows the user to cancel a transaction
+     * @param transaction the transaction to cancel (supposed to be the latest)
      */
     public void cancel(Transaction transaction) {
         if (transaction.getTicket() instanceof IndividualTrip) {

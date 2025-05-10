@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 import static org.example.Card.Status.STUDENT;
@@ -13,7 +12,7 @@ public class AccountsTest {
     public static File fakeFile = new File(filePath);
 
     @Test
-    public void testAddFromFile() throws IOException {
+    public void testAddFromFile() {
         Owner o1 = new Owner("astghik", "minasyan");
         Owner o2 = new Owner("arpine", "grigoryan");
         Owner o3 = new Owner("siranush", "minasyan");
@@ -37,19 +36,20 @@ public class AccountsTest {
 
     @Test
     public void testFindCard1() {
-        Accounts.addFromFile(fakeFile);
         Owner o1 = new Owner("john", "rich");
         Owner o2 = new Owner("alice", "rich");
         Owner o3 = new Owner("john", "harper");
         Card c1 = new StudentCard(o1);
         Card c2 = new StudentCard(o2);
         Card c3 = new StudentCard(o3);
+        c2.setId(2);
 
         TreeSet<Card> fakeCards = new TreeSet<>();
         Accounts.setCards(fakeCards);
         fakeCards.add(c1);
         fakeCards.add(c2);
         fakeCards.add(c3);
+        Accounts.writeToFile(fakeFile);
 
         int id = 2;
         Card expected = c2;
