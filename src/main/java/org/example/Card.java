@@ -134,7 +134,6 @@ public abstract class Card implements Comparable<Card> {
                 weekly.setPurchaseDate(transactions.get(transactions.size() - 2).getDateMade());
             }
         }
-
         transactions.pop();
     }
 
@@ -156,7 +155,6 @@ public abstract class Card implements Comparable<Card> {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
         return fileId;
     }
 

@@ -18,7 +18,7 @@ public class UserInputManager {
     public static final String ANSI_BLUE = "\u001B[34m";
 
     /**
-     * asks the user to put their id if their registered, if they're not it will allow them to register
+     * displays the welcome menu and allows the user to make a choice
      */
     public void welcomeMenuOption() {
         Scanner sc = new Scanner(System.in);

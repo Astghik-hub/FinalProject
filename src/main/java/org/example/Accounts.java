@@ -108,7 +108,6 @@ public class Accounts {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
         makeMap();
     }
 
@@ -155,7 +154,6 @@ public class Accounts {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         makeMap();
     }
 
