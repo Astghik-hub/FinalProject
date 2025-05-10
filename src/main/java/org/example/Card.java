@@ -154,8 +154,12 @@ public abstract class Card implements Comparable<Card> {
     public static int readIdFromFile(File file) {
         int fileId;
         try {
-            Scanner sc = new Scanner(file);
-            fileId = sc.nextInt();
+            if (file.length() == 0) {
+                fileId = 1;
+            } else {
+                Scanner sc = new Scanner(file);
+                fileId = sc.nextInt();
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

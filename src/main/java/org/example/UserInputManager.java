@@ -165,7 +165,7 @@ public class UserInputManager {
                         Accounts.getCards().remove(card);
                         card.addTrips(numTrips);
                         Accounts.getCards().add(card);
-                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
+                        Accounts.writeToFile(Accounts.getAccountsFile());
                         System.out.printf("%d Ticket(s) bought successfully\n", numTrips);
                         return;
                     }
@@ -202,7 +202,7 @@ public class UserInputManager {
                         Accounts.getCards().remove(card);
                         card.addMonthly(price);
                         Accounts.getCards().add(card);
-                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
+                        Accounts.writeToFile(Accounts.getAccountsFile());
                         System.out.println("Bus pass bought successfully\n");
                         return;
                     }
@@ -239,7 +239,7 @@ public class UserInputManager {
                         Accounts.getCards().remove(card);
                         card.addWeekly(price);
                         Accounts.getCards().add(card);
-                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
+                        Accounts.writeToFile(Accounts.getAccountsFile());
                         System.out.println("Bus pass bought successfully\n");
                         return;
                     }
@@ -278,7 +278,7 @@ public class UserInputManager {
                         Accounts.getCards().remove(card);
                         card.cancel(transaction);
                         Accounts.getCards().add(card);
-                        Accounts.writeToFile(Accounts.getAccountsFile(), false);
+                        Accounts.writeToFile(Accounts.getAccountsFile());
                         System.out.println("Transaction canceled successfully\n");
                         return;
                     }
@@ -329,7 +329,7 @@ public class UserInputManager {
         Scanner sc = new Scanner(System.in);
         String sortType;
         while (true) {
-            System.out.println("Would you like to sort them by first name (f) or last name (l)?");
+            System.out.println("Would you like to sort the cards by first name (f) or last name (l)?");
             sortType = sc.next();
             if (sortType.equalsIgnoreCase("f") || sortType.equalsIgnoreCase("l")) {
                 break;
@@ -406,9 +406,10 @@ public class UserInputManager {
 
     /**
      * prints an arraylist of cards
+     *
      * @param cardList the arraylist of cards to print
      */
     public void printArrayList(List<Card> cardList) {
-        cardList.forEach(card -> System.out.printf("%s, %s, %s, %d, %d, %b, %b\n", card.owner.getFname(), card.owner.getLname(), card.status, card.id, card.balance, card.isMonthly, card.isWeekly));
+        cardList.forEach(card -> System.out.printf("%s, %s, %05d, %s, %d, %b, %b\n", card.owner.getFname(), card.owner.getLname(),card.id ,card.status, card.balance, card.isMonthly, card.isWeekly));
     }
 }

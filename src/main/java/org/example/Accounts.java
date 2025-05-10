@@ -71,7 +71,7 @@ public class Accounts {
         assert card != null;
         System.out.printf("Here is your id: %d\n", card.id);
         cards.add(card);
-        writeToFile(card, accountsFile, true);
+        writeToFile(card, accountsFile);
     }
 
     /**
@@ -110,8 +110,27 @@ public class Accounts {
         makeMap();
     }
 
-    public static void writeToFile(File file, boolean append) {
-        cards.forEach(card -> writeToFile(card, file, append));
+    /**
+     * clears the whole file
+     *
+     * @param file the file to clear
+     */
+    public static void clearFile(File file) {
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            fileWriter.write("");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * writes the cards to a file
+     *
+     * @param file   the file to write in
+     */
+    public static void writeToFile(File file) {
+        clearFile(file);
+        cards.forEach(card -> writeToFile(card, file));
     }
 
     /**
@@ -120,17 +139,17 @@ public class Accounts {
      * @param card the card that was registered
      * @param file the file in which the card has to be written
      */
-    public static void writeToFile(Card card, File file, boolean append) {
-        try (FileWriter fileWriter = new FileWriter(file, append)) {
-                fileWriter.write(card.getId() + ",");
-                fileWriter.write(card.getStatus() + ",");
-                fileWriter.write(card.getOwner().getFname() + ",");
-                fileWriter.write(card.getOwner().getLname() + ",");
-                fileWriter.write(card.getBalance() + ",");
-                fileWriter.write(card.getIsMonthly() + ",");
-                fileWriter.write(card.getMonthly().getPurchaseDate() + ",");
-                fileWriter.write(card.getIsWeekly() + ",");
-                fileWriter.write(card.getWeekly().getPurchaseDate() + "\n");
+    public static void writeToFile(Card card, File file) {
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            fileWriter.write(card.getId() + ",");
+            fileWriter.write(card.getStatus() + ",");
+            fileWriter.write(card.getOwner().getFname() + ",");
+            fileWriter.write(card.getOwner().getLname() + ",");
+            fileWriter.write(card.getBalance() + ",");
+            fileWriter.write(card.getIsMonthly() + ",");
+            fileWriter.write(card.getMonthly().getPurchaseDate() + ",");
+            fileWriter.write(card.getIsWeekly() + ",");
+            fileWriter.write(card.getWeekly().getPurchaseDate() + "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -143,7 +162,7 @@ public class Accounts {
      */
     public static void makeMap() {
         ArrayList<Card> cardList = new ArrayList<>(cards);
-        for (int  i = 0; i < cards.size(); i++) {
+        for (int i = 0; i < cards.size(); i++) {
             idMap.put(cardList.get(i).getId(), cardList.get(i));
         }
     }
