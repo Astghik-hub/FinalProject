@@ -11,12 +11,18 @@ public class UserInputManager {
     public static Map<Integer, String> proceedMenu = new TreeMap<>();
 
     private static final int PASSWORD = 91476;
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
 
     /**
      * asks the user to put their id if their registered, if they're not it will allow them to register
      */
     public void welcomeMenuOption() {
         Scanner sc = new Scanner(System.in);
+        System.out.println(ANSI_BLUE + "~~Welcome to the Opus Card Machine~~" + ANSI_RESET);
         while (true) {
             try {
                 displayWelcomeMenu();
@@ -26,13 +32,13 @@ public class UserInputManager {
                     case 2 -> Accounts.register();
                     case 3 -> forgotId();
                     case 4 -> {
-                        System.out.println("Thank you for using the machine");
+                        System.out.println(ANSI_BLUE + "Thank you for using the machine" + ANSI_RESET);
                         return;
                     }
                     default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input, please try again");
+                System.out.println(ANSI_RED + "Invalid input, please try again" + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -56,8 +62,8 @@ public class UserInputManager {
                 this.card = Accounts.findCard(id);
 
                 while (card == null) {
-                    System.out.println("Card ID doesn't exist. Please try again or register if you haven't already. " +
-                                       "Type 'b' if you want to go back");
+                    System.out.println(ANSI_RED + "Card ID doesn't exist. Please try again or register if you haven't already. " +
+                                       "Type 'b' if you want to go back" + ANSI_RESET);
                     input = sc.nextLine();
                     if (input.equalsIgnoreCase("b")) {
                         return;
@@ -67,12 +73,12 @@ public class UserInputManager {
                     this.card = Accounts.findCard(id);
                 }
 
-                System.out.println("Login successful. Welcome " + card.owner.toString());
+                System.out.println("Login successful. Welcome " + ANSI_BLUE + card.owner.toString() + ANSI_RESET);
                 mainMenuOption();
                 return;
 
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number or 'b' to go back.");
+                System.out.println(ANSI_RED + "Invalid input. Please enter a valid number or 'b' to go back." + ANSI_RESET);
             }
         }
     }
@@ -86,6 +92,7 @@ public class UserInputManager {
         while (true) {
             try {
                 displayMainMenu();
+                System.out.println(ANSI_YELLOW + "**If you log out, you cannot cancel your current transactions" + ANSI_RESET);
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1 -> card.checkCard();
@@ -98,7 +105,7 @@ public class UserInputManager {
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input, please try again");
+                System.out.println(ANSI_RED + "Invalid input, please try again" + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -125,7 +132,7 @@ public class UserInputManager {
                     default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input, please try again");
+                System.out.println(ANSI_RED + "Invalid input, please try again" + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -143,12 +150,12 @@ public class UserInputManager {
                 System.out.print("Amount of tickets you wish to buy: ");
                 numTrips = sc.nextInt();
                 if (numTrips <= 0) {
-                    System.out.println("Please enter a positive number.");
+                    System.out.println(ANSI_RED + "Please enter a positive number." + ANSI_RESET);
                     continue;
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println(ANSI_RED + "Invalid input. Please enter a number." + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -166,16 +173,16 @@ public class UserInputManager {
                         card.addTrips(numTrips);
                         Accounts.getCards().add(card);
                         Accounts.writeToFile(Accounts.getAccountsFile());
-                        System.out.printf("%d Ticket(s) bought successfully\n", numTrips);
+                        System.out.printf(ANSI_GREEN + "%d Ticket(s) bought successfully\n" + ANSI_RESET, numTrips);
                         return;
                     }
                     case 2 -> {
                         return;
                     }
-                    default -> System.out.println("Invalid option. Please choose 1 or 2.");
+                    default -> System.out.println(ANSI_RED + "Invalid option. Please choose 1 or 2." + ANSI_RESET);
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.println(ANSI_RED + "Invalid input. Please enter a number." + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -203,7 +210,7 @@ public class UserInputManager {
                         card.addMonthly(price);
                         Accounts.getCards().add(card);
                         Accounts.writeToFile(Accounts.getAccountsFile());
-                        System.out.println("Bus pass bought successfully\n");
+                        System.out.println(ANSI_GREEN + "Bus pass bought successfully\n" + ANSI_RESET);
                         return;
                     }
                     case 2 -> {
@@ -212,7 +219,7 @@ public class UserInputManager {
                     default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid entry, please try again");
+                System.out.println(ANSI_RED + "Invalid entry, please try again" + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -249,7 +256,7 @@ public class UserInputManager {
                     default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid entry, please try again");
+                System.out.println(ANSI_RED + "Invalid entry, please try again" + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -260,13 +267,13 @@ public class UserInputManager {
      */
     public void cancelMenuOption() {
         if (card.transactions.isEmpty()) {
-            System.out.println("There are no transactions to cancel");
+            System.out.println(ANSI_RED + "There are no transactions to cancel" + ANSI_RESET);
             return;
         }
 
         Scanner sc = new Scanner(System.in);
         Transaction transaction = card.transactions.peek();
-        System.out.println("**You can only cancel the latest transaction");
+        System.out.println(ANSI_YELLOW + "**You can only cancel the latest transaction" + ANSI_RESET);
         System.out.printf("Transaction to cancel: %s, %.2f $\n", transaction.getTicket().name, transaction.getAmount());
 
         while (true) {
@@ -279,7 +286,7 @@ public class UserInputManager {
                         card.cancel(transaction);
                         Accounts.getCards().add(card);
                         Accounts.writeToFile(Accounts.getAccountsFile());
-                        System.out.println("Transaction canceled successfully\n");
+                        System.out.println(ANSI_GREEN + "Transaction canceled successfully\n" + ANSI_RESET);
                         return;
                     }
                     case 2 -> {
@@ -288,7 +295,7 @@ public class UserInputManager {
                     default -> throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid entry, please try again");
+                System.out.println(ANSI_RED + "Invalid entry, please try again" + ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -300,7 +307,7 @@ public class UserInputManager {
      */
     public void forgotId() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the password. To go back type 'b'");
+        System.out.println("Please enter the password or ask someone who knows it. To go back type 'b'");
 
         while (true) {
             String input = sc.nextLine();
@@ -314,10 +321,10 @@ public class UserInputManager {
                     displayAccountsOption();
                     return;
                 } else {
-                    System.out.println("Wrong password, try again or press 'b' to go back");
+                    System.out.println(ANSI_RED + "Wrong password, try again or press 'b' to go back" + ANSI_RESET);
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number or 'b' to go back.");
+                System.out.println(ANSI_RED + "Invalid input. Please enter a number or 'b' to go back." + ANSI_RESET);
             }
         }
     }
@@ -334,7 +341,7 @@ public class UserInputManager {
             if (sortType.equalsIgnoreCase("f") || sortType.equalsIgnoreCase("l")) {
                 break;
             } else {
-                System.out.println("Invalid sort type. Please enter 'f' or 'l'.");
+                System.out.println(ANSI_RED + "Invalid sort type. Please enter 'f' or 'l'." + ANSI_RESET);
             }
             sc.nextLine();
         }
@@ -369,7 +376,7 @@ public class UserInputManager {
         menu.put(1, "Check card");
         menu.put(2, "Buy");
         menu.put(3, "Cancel Transaction");
-        menu.put(4, "Exit");
+        menu.put(4, "Log out");
         printMaps(menu);
     }
 
@@ -410,6 +417,6 @@ public class UserInputManager {
      * @param cardList the arraylist of cards to print
      */
     public void printArrayList(List<Card> cardList) {
-        cardList.forEach(card -> System.out.printf("%s, %s, %05d, %s, %d, %b, %b\n", card.owner.getFname(), card.owner.getLname(),card.id ,card.status, card.balance, card.isMonthly, card.isWeekly));
+        cardList.forEach(card -> System.out.printf("%s, %s, %05d, %s, %d, %b, %b\n", card.owner.getFname(), card.owner.getLname(), card.id, card.status, card.balance, card.isMonthly, card.isWeekly));
     }
 }

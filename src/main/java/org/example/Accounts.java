@@ -28,7 +28,7 @@ public class Accounts {
                 fname = sc.next();
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid first name.");
+                System.out.println(UserInputManager.ANSI_RED + "Invalid input. Please enter a valid first name." + UserInputManager.ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -39,7 +39,7 @@ public class Accounts {
                 lname = sc.next();
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid last name.");
+                System.out.println(UserInputManager.ANSI_RED + "Invalid input. Please enter a valid last name." + UserInputManager.ANSI_RESET);
                 sc.nextLine();
             }
         }
@@ -51,10 +51,10 @@ public class Accounts {
                 if (status.equalsIgnoreCase("student") || status.equalsIgnoreCase("normal")) {
                     break;
                 } else {
-                    System.out.println("Invalid status. Please enter 'student' or 'normal'.");
+                    System.out.println(UserInputManager.ANSI_RED + "Invalid status. Please enter 'student' or 'normal'." + UserInputManager.ANSI_RESET);
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid status.");
+                System.out.println(UserInputManager.ANSI_RED + "Invalid input. Please enter a valid status." + UserInputManager.ANSI_RESET);
                 sc.nextLine();
             }
         }

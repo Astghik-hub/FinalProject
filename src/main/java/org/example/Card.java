@@ -66,17 +66,21 @@ public abstract class Card implements Comparable<Card> {
         System.out.printf("Balance: %d ticket(s)\n", balance);
 
         if (monthly.recharge()) {
-            System.out.println("Your card is charged for the month");
+            System.out.println("Your card " + UserInputManager.ANSI_GREEN + "is charged " + UserInputManager.ANSI_RESET
+                               + "for the " + UserInputManager.ANSI_GREEN + "month" + UserInputManager.ANSI_RESET);
         } else {
             isMonthly = false;
-            System.out.println("Your card is not charged for the month");
+            System.out.println("Your card " + UserInputManager.ANSI_RED + "is not charged " + UserInputManager.ANSI_RESET
+                               + "for the " + UserInputManager.ANSI_RED + "month" + UserInputManager.ANSI_RESET);
         }
 
         if (weekly.recharge()) {
-            System.out.println("Your card is charged for the week");
+            System.out.println("Your card " + UserInputManager.ANSI_GREEN + "is charged " + UserInputManager.ANSI_RESET
+                               + "for the " + UserInputManager.ANSI_GREEN + "week" + UserInputManager.ANSI_RESET);
         } else {
             isWeekly = false;
-            System.out.println("Your card is not charged for the week");
+            System.out.println("Your card " + UserInputManager.ANSI_RED + "is not charged " + UserInputManager.ANSI_RESET
+                               + "for the " + UserInputManager.ANSI_RED + "week" + UserInputManager.ANSI_RESET);
         }
     }
 
