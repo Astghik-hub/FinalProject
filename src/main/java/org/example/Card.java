@@ -216,6 +216,10 @@ public abstract class Card implements Comparable<Card> {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Status getStatus() {
         return status;
     }
