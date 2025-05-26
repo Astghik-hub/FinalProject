@@ -95,7 +95,12 @@ public class UserInputManager {
                 System.out.println(ANSI_YELLOW + "**If you log out, you cannot cancel your current transactions" + ANSI_RESET);
                 int choice = sc.nextInt();
                 switch (choice) {
-                    case 1 -> card.checkCard();
+                    case 1 -> {
+                        Accounts.getCards().remove(card);
+                        card.checkCard();
+                        Accounts.getCards().add(card);
+                        Accounts.writeToFile(Accounts.getAccountsFile());
+                    }
                     case 2 -> buyMenuOption();
                     case 3 -> cancelMenuOption();
                     case 4 -> {
