@@ -100,6 +100,7 @@ public class UserInputManager {
                         card.checkCard();
                         Accounts.getCards().add(card);
                         Accounts.writeToFile(Accounts.getAccountsFile());
+
                     }
                     case 2 -> buyMenuOption();
                     case 3 -> cancelMenuOption();
